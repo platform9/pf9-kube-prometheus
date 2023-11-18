@@ -59,10 +59,10 @@ check-docs: $(MDOX_BIN) $(shell find examples) build.sh example.jsonnet
 .PHONY: generate
 generate: manifests
 
-manifests: examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
+manifests: $(GOPATH) examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
 	./build.sh $<
 
-vendor: $(GOPATH) $(JB_BIN) jsonnetfile.json jsonnetfile.lock.json
+vendor: $(JB_BIN) jsonnetfile.json jsonnetfile.lock.json
 	rm -rf vendor
 	$(JB_BIN) install
 
