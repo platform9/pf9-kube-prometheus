@@ -57,9 +57,9 @@ check-docs: $(MDOX_BIN) $(shell find examples) build.sh example.jsonnet
 	$(MDOX_BIN) fmt --soft-wraps --check -l --links.localize.address-regex="https://prometheus-operator.dev/.*" --links.validate.config-file=$(MDOX_VALIDATE_CONFIG) $(MD_FILES_TO_FORMAT)
 
 .PHONY: generate
-generate: manifests
+generate: $(GOPATH) manifests
 
-manifests: $(GOPATH) examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
+manifests: examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
 	./build.sh $<
 
 vendor: $(JB_BIN) jsonnetfile.json jsonnetfile.lock.json
