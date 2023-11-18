@@ -19,7 +19,26 @@ MD_FILES_TO_FORMAT=$(shell find docs developer-workspace examples experimental j
 
 KUBESCAPE_THRESHOLD=1
 
+CURRENT_DIR := $(abspath .)
+# Dependencies
+GOPATH ?= $(CURRENT_DIR)/gopath
+GOPATH_DIR := $(GOPATH)
+NEWPATH := $(PATH):$(CURRENT_DIR)/go/bin:$(GOPATH)/bin
+
+
+
 all: generate fmt test docs
+
+.PHONY: go-tools
+go-tools: $(GOPATH)
+
+$(GOPATH): export PATH=$(NEWPATH)
+$(GOPATH): export GOPATH=$(GOPATH_DIR)
+$(GOPATH): export GO111MODULE=on
+$(GOPATH):
+	bash $(CURRENT_DIR)/scripts/get-go-tools.sh
+#	go install -a 'github.com/grafana/tanka/cmd/tk@v0.24.0'
+#	go install -a 'github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1'
 
 .PHONY: clean
 clean:
@@ -39,7 +58,7 @@ check-docs: $(MDOX_BIN) $(shell find examples) build.sh example.jsonnet
 .PHONY: generate
 generate: manifests
 
-manifests: examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
+manifests: $(GOPATH) examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
 	./build.sh $<
 
 vendor: $(JB_BIN) jsonnetfile.json jsonnetfile.lock.json
