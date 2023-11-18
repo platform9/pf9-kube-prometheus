@@ -37,6 +37,7 @@ $(GOPATH): export GOPATH=$(GOPATH_DIR)
 $(GOPATH): export GO111MODULE=on
 $(GOPATH):
 	bash $(CURRENT_DIR)/scripts/get-go-tools.sh
+	mkdir -p tmp/bin
 #	go install -a 'github.com/grafana/tanka/cmd/tk@v0.24.0'
 #	go install -a 'github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1'
 
