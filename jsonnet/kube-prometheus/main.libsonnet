@@ -130,9 +130,9 @@ local utils = import './lib/utils.libsonnet';
     },
   },
 
-  alertmanager: alertmanager($.values.alertmanager),
+#  alertmanager: alertmanager($.values.alertmanager),
   blackboxExporter: blackboxExporter($.values.blackboxExporter),
-  grafana: grafana($.values.grafana),
+#  grafana: grafana($.values.grafana),
   kubeStateMetrics: kubeStateMetrics($.values.kubeStateMetrics),
   nodeExporter: nodeExporter($.values.nodeExporter),
   prometheus: prometheus($.values.prometheus),
