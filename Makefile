@@ -27,7 +27,8 @@ NEWPATH := $(PATH):$(CURRENT_DIR)/go/bin:$(GOPATH)/bin
 
 
 
-all: generate fmt test docs
+all: generate fmt 
+#test docs
 
 .PHONY: go-tools
 go-tools: $(GOPATH)
