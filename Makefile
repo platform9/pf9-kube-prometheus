@@ -126,4 +126,4 @@ deploy:
 publish:
 	rm -rf $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
 	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
-	cp -r $(MANIFESTS)/  $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
+	cp -r $(CURRENT_DIR)/manifests/  $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
