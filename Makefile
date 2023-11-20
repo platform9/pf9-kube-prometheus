@@ -27,7 +27,7 @@ NEWPATH := $(PATH):$(CURRENT_DIR)/go/bin:$(GOPATH)/bin
 
 
 
-all: generate fmt 
+all: generate fmt publish
 #test docs
 
 .PHONY: go-tools
@@ -121,3 +121,9 @@ $(TOOLING): $(BIN_DIR)
 deploy:
 	./developer-workspace/codespaces/prepare-kind.sh
 	./developer-workspace/common/deploy-kube-prometheus.sh
+
+.PHONY: publish
+publish:
+	rm -rf $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
+	cp -r $(MANIFESTS)/  $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
