@@ -125,5 +125,8 @@ deploy:
 .PHONY: publish
 publish:
 	rm -rf $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
-	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/grafana
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/alertmanager
+	mv $(CURRENT_DIR)/manifests/alertmanager-* $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/alertmanager/
+	mv $(CURRENT_DIR)/manifests/grafana-* $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/grafana/
 	cp -r $(CURRENT_DIR)/manifests/  $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/
