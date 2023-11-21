@@ -332,49 +332,6 @@ function(params) {
         labels: p.prometheus.metadata.labels,
       },
       externalLabels: p._config.externalLabels,
-      enableFeatures: p._config.enableFeatures,
-      serviceAccountName: p.serviceAccount.metadata.name,
-      podMonitorSelector: {},
-      podMonitorNamespaceSelector: {},
-      probeSelector: {},
-      probeNamespaceSelector: {},
-      ruleNamespaceSelector: {},
-      ruleSelector: p._config.ruleSelector,
-      scrapeConfigSelector: {},
-      scrapeConfigNamespaceSelector: {},
-      serviceMonitorSelector: {},
-      serviceMonitorNamespaceSelector: {},
-      nodeSelector: { 'kubernetes.io/os': 'linux' },
-      resources: p._config.resources,
-      alerting: if p._config.alerting != {} then p._config.alerting else {
-        alertmanagers: [{
-          namespace: p._config.namespace,
-          name: 'alertmanager-' + p._config.alertmanagerName,
-          port: 'web',
-          apiVersion: 'v2',
-        }],
-      },
-      securityContext: {
-        runAsUser: 1000,
-        runAsNonRoot: true,
-        fsGroup: 2000,
-      },
-      [if std.objectHas(params, 'thanos') then 'thanos']: p._config.thanos,
-    },
-  },
-
-  serviceMonitor: {
-    apiVersion: 'monitoring.coreos.com/v1',
-    kind: 'ServiceMonitor',
-    metadata: p._metadata,
-    spec: {
-      selector: {
-        matchLabels: p._config.selectorLabels,
-      },
-      endpoints: [
-        { port: 'web', interval: '30s' },
-        { port: 'reloader-web', interval: '30s' },
-      ],
       remoteWrite: [
           {
               basicAuth: {
@@ -418,6 +375,49 @@ function(params) {
                 ]
           }
       ],      
+      enableFeatures: p._config.enableFeatures,
+      serviceAccountName: p.serviceAccount.metadata.name,
+      podMonitorSelector: {},
+      podMonitorNamespaceSelector: {},
+      probeSelector: {},
+      probeNamespaceSelector: {},
+      ruleNamespaceSelector: {},
+      ruleSelector: p._config.ruleSelector,
+      scrapeConfigSelector: {},
+      scrapeConfigNamespaceSelector: {},
+      serviceMonitorSelector: {},
+      serviceMonitorNamespaceSelector: {},
+      nodeSelector: { 'kubernetes.io/os': 'linux' },
+      resources: p._config.resources,
+      alerting: if p._config.alerting != {} then p._config.alerting else {
+        alertmanagers: [{
+          namespace: p._config.namespace,
+          name: 'alertmanager-' + p._config.alertmanagerName,
+          port: 'web',
+          apiVersion: 'v2',
+        }],
+      },
+      securityContext: {
+        runAsUser: 1000,
+        runAsNonRoot: true,
+        fsGroup: 2000,
+      },
+      [if std.objectHas(params, 'thanos') then 'thanos']: p._config.thanos,
+    },
+  },
+
+  serviceMonitor: {
+    apiVersion: 'monitoring.coreos.com/v1',
+    kind: 'ServiceMonitor',
+    metadata: p._metadata,
+    spec: {
+      selector: {
+        matchLabels: p._config.selectorLabels,
+      },
+      endpoints: [
+        { port: 'web', interval: '30s' },
+        { port: 'reloader-web', interval: '30s' },
+      ],     
     },
   },
 
