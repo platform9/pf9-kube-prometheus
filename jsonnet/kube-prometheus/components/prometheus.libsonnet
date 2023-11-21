@@ -375,6 +375,49 @@ function(params) {
         { port: 'web', interval: '30s' },
         { port: 'reloader-web', interval: '30s' },
       ],
+      remoteWrite: [
+          {
+              basicAuth: {
+                  password: {
+                      key: "password",
+                      name: "remotewrite-basicauth-deccometheus",
+                  },
+                  username: {
+                      key: "username",
+                      name: "remotewrite-basicauth-deccometheus",
+                  }
+              },  
+              url: "https://pmkft-staging.cortex-dev.infrastructure.rspc.platform9.horse/api/prom/push",
+              # filter out metrics globally that are expensive and/or we don't need
+              writeRelabelConfigs: [
+
+                    # standard issue go-generated series that no one looks at
+                    # (and are often redundant in cases such as consul)
+                    {
+                        action: "drop",
+                        regex: "go_.*",
+                        sourceLabels: ["__name__"]
+                    },
+
+                    # the value of the "service" label (tacked on by the prometheus
+                    # operator) matches the "job" label, making it redundant
+                    {
+                        action: "labeldrop",
+                        regex: "^service$"
+                    },
+
+                    # kubernetes_sd_configs labels deemed redundant
+                    {
+                        action: "labeldrop",
+                        regex: "^pod_template_generation$"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "^controller_revision_hash$"
+                    },
+                ]
+          }
+      ],      
     },
   },
 
