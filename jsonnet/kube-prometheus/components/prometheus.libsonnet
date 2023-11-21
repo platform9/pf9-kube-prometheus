@@ -337,14 +337,14 @@ function(params) {
               basicAuth: {
                   password: {
                       key: "password",
-                      name: "remotewrite-basicauth-deccometheus",
+                      name: "remotewrite-basicauth-deccometheus-primary",
                   },
                   username: {
                       key: "username",
-                      name: "remotewrite-basicauth-deccometheus",
+                      name: "remotewrite-basicauth-deccometheus-primary",
                   }
               },  
-              url: "https://pmkft-staging.cortex-dev.infrastructure.rspc.platform9.horse/api/prom/push",
+              url: "https://cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push",
               # filter out metrics globally that are expensive and/or we don't need
               writeRelabelConfigs: [
 
