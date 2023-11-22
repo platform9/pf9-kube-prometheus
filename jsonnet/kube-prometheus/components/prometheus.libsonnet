@@ -347,6 +347,7 @@ function(params) {
                   }
               },  
               url: "https://cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push",
+              remoteTimeout: '2m',
               # trade larger request sizes for request volume/rate
               # this helps ease burden on the nginx proxy for authentication
               queueConfig: {
