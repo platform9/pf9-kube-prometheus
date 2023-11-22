@@ -355,6 +355,9 @@ function(params) {
                   maxSamplesPerSend: 1000,
                   capacity: 1000,  
               },
+              tlsConfig: {
+                insecureSkipVerify: true,
+              },         
               # filter out metrics globally that are expensive and/or we don't need
               writeRelabelConfigs: [
 
