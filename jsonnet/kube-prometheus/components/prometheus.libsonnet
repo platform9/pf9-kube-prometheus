@@ -347,6 +347,13 @@ function(params) {
                   }
               },  
               url: "https://cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push",
+              # trade larger request sizes for request volume/rate
+              # this helps ease burden on the nginx proxy for authentication
+              queueConfig: {
+                  maxShards: 100,
+                  maxSamplesPerSend: 1000,
+                  capacity: 1000,  
+              },
               # filter out metrics globally that are expensive and/or we don't need
               writeRelabelConfigs: [
 
