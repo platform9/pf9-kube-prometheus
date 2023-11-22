@@ -339,14 +339,14 @@ function(params) {
               basicAuth: {
                   password: {
                       key: "password",
-                      name: "remotewrite-basicauth-deccometheus-primary",
+                      name: "remotewrite-basicauth-deccometheus",
                   },
                   username: {
                       key: "username",
-                      name: "remotewrite-basicauth-deccometheus-primary",
+                      name: "remotewrite-basicauth-deccometheus",
                   }
               },  
-              url: "https://cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push",
+              url: "https://pmkft.cortex.platform9.net/api/prom/push",
               remoteTimeout: '2m',
               # trade larger request sizes for request volume/rate
               # this helps ease burden on the nginx proxy for authentication
