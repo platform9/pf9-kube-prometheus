@@ -75,7 +75,7 @@ function(params) {
       jobLabel: 'app.kubernetes.io/name',
       endpoints: [{
         port: 'https-metrics',
-        interval: '30s',
+        interval: k8s._config.scrapeInterval,
         scheme: 'https',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         tlsConfig: { insecureSkipVerify: true },
@@ -102,7 +102,7 @@ function(params) {
         {
           port: 'https-metrics',
           scheme: 'https',
-          interval: '30s',
+          interval: k8s._config.scrapeInterval,
           honorLabels: true,
           tlsConfig: { insecureSkipVerify: true },
           bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
@@ -117,7 +117,7 @@ function(params) {
           port: 'https-metrics',
           scheme: 'https',
           path: '/metrics/cadvisor',
-          interval: '30s',
+          interval: k8s._config.scrapeInterval,
           honorLabels: true,
           honorTimestamps: false,
           tlsConfig: {
@@ -166,7 +166,7 @@ function(params) {
           port: 'https-metrics',
           scheme: 'https',
           path: '/metrics/probes',
-          interval: '30s',
+          interval: k8s._config.scrapeInterval,
           honorLabels: true,
           tlsConfig: { insecureSkipVerify: true },
           bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
@@ -197,7 +197,7 @@ function(params) {
       jobLabel: 'app.kubernetes.io/name',
       endpoints: [{
         port: 'https-metrics',
-        interval: '30s',
+        interval: k8s._config.scrapeInterval,
         scheme: 'https',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         tlsConfig: {
@@ -240,7 +240,7 @@ function(params) {
       },
       endpoints: [{
         port: 'https',
-        interval: '30s',
+        interval: k8s._config.scrapeInterval,
         scheme: 'https',
         tlsConfig: {
           caFile: '/var/run/secrets/kubernetes.io/serviceaccount/ca.crt',
@@ -333,7 +333,7 @@ function(params) {
       endpoints: [
         {
           port: 'metrics',
-          interval: '15s',
+          interval: k8s._config.scrapeInterval,
           bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
           metricRelabelings: [
             // Drop deprecated metrics

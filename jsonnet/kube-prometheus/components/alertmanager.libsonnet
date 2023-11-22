@@ -195,8 +195,14 @@ function(params) {
         matchLabels: am._config.selectorLabels,
       },
       endpoints: [
-        { port: 'web', interval: '30s' },
-        { port: 'reloader-web', interval: '30s' },
+        { 
+          port: 'web',
+          interval: am._config.scrapeInterval,
+        },
+        {
+          port: 'reloader-web',
+          interval: am._config.scrapeInterval,
+        },
       ],
     },
   },

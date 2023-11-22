@@ -163,7 +163,7 @@ function(params) {
       endpoints: [{
         port: 'https',
         scheme: 'https',
-        interval: '15s',
+        interval: ne._config.scrapeInterval,
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         relabelings: [
           {

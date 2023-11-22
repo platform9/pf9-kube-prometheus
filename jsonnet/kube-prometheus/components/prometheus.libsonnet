@@ -417,8 +417,8 @@ function(params) {
         matchLabels: p._config.selectorLabels,
       },
       endpoints: [
-        { port: 'web', interval: '30s' },
-        { port: 'reloader-web', interval: '30s' },
+        { port: 'web', interval: p._config.scrapeInterval },
+        { port: 'reloader-web', interval: p._config.scrapeInterval },
       ],     
     },
   },

@@ -180,7 +180,7 @@ function(params) {
       endpoints: [
         {
           port: 'https',
-          interval: '30s',
+          interval: pa._config.scrapeInterval,
           scheme: 'https',
           tlsConfig: {
             insecureSkipVerify: true,

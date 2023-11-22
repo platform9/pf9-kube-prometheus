@@ -312,7 +312,7 @@ function(params) {
     spec: {
       endpoints: [{
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
-        interval: '30s',
+        interval: bb._config.scrapeInterval,
         path: '/metrics',
         port: 'https',
         scheme: 'https',
