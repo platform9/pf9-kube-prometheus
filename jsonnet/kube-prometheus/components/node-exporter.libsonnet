@@ -19,6 +19,8 @@ local defaults = {
       limits: { cpu: '20m', memory: '40Mi' },
     },
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',
   listenAddress:: '127.0.0.1',
   filesystemMountPointsExclude:: '^/(dev|proc|sys|run/k3s/containerd/.+|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)',
   // NOTE: ignore veth network interface associated with containers.

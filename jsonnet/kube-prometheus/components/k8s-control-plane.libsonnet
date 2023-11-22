@@ -8,6 +8,8 @@ local defaults = {
     'app.kubernetes.io/name': 'kube-prometheus',
     'app.kubernetes.io/part-of': 'kube-prometheus',
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',  
   mixin:: {
     ruleLabels: {},
     _config: {

@@ -16,6 +16,8 @@ local defaults = {
     'app.kubernetes.io/component': 'alert-router',
     'app.kubernetes.io/part-of': 'kube-prometheus',
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',  
   selectorLabels:: {
     [labelName]: defaults.commonLabels[labelName]
     for labelName in std.objectFields(defaults.commonLabels)

@@ -17,6 +17,8 @@ local defaults = {
       limits: { cpu: '20m', memory: '40Mi' },
     },
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',  
   commonLabels:: {
     'app.kubernetes.io/name': 'blackbox-exporter',
     'app.kubernetes.io/version': defaults.version,

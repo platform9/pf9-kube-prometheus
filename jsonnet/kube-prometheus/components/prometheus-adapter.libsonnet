@@ -32,6 +32,8 @@ local defaults = {
     windowsExporter: '4m',
   },
   containerMetricsPrefix:: '',
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',
 
   prometheusURL:: error 'must provide prometheusURL',
   containerQuerySelector:: '',
