@@ -25,7 +25,8 @@ GOPATH ?= $(CURRENT_DIR)/gopath
 GOPATH_DIR := $(GOPATH)
 NEWPATH := $(PATH):$(CURRENT_DIR)/go/bin:$(GOPATH)/bin
 
-
+ENVIRONMENT ?= default
+ENV_FILE ?= $(ENVIRONMENT).jsonnet
 
 all: generate fmt publish
 #test docs
@@ -39,6 +40,8 @@ $(GOPATH): export GO111MODULE=on
 $(GOPATH):
 	bash $(CURRENT_DIR)/scripts/get-go-tools.sh
 	mkdir -p tmp/bin
+#   Pick the right environment file based on the CI job flag
+	cp $(CURRENT_DIR)/env/$(ENV_FILE) $(CURRENT_DIR)/environment.jsonnet
 #	go install -a 'github.com/grafana/tanka/cmd/tk@v0.24.0'
 #	go install -a 'github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1'
 

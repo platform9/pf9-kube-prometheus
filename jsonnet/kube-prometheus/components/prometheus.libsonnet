@@ -1,4 +1,4 @@
-//local secrets = import '../../environment.jsonnet';
+local environment_vars = import '../environment.jsonnet';
 local defaults = {
   local defaults = self,
   // Convention: Top-level fields related to CRDs are public, other fields are hidden
@@ -17,7 +17,7 @@ local defaults = {
   alerting: {},
   namespaces:: ['default', 'kube-system', defaults.namespace],
   replicas: 2,
-  externalLabels: { cluster: 'loki-test-eks'},
+  externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
   enableFeatures: [],
   ruleSelector: {},
   commonLabels:: {
@@ -340,14 +340,14 @@ function(params) {
               basicAuth: {
                   password: {
                       key: "password",
-                      name: "remotewrite-basicauth-deccometheus",
+                      name: "remotewrite-basicauth-prometheus",
                   },
                   username: {
                       key: "username",
-                      name: "remotewrite-basicauth-deccometheus",
+                      name: "remotewrite-basicauth-prometheus",
                   }
               },  
-              url: "https://pmkft.cortex.platform9.net/api/prom/push",
+              url: environment_vars.kube_prometheus.remote_write.url,
               remoteTimeout: '2m',
               # trade larger request sizes for request volume/rate
               # this helps ease burden on the nginx proxy for authentication
