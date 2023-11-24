@@ -1,3 +1,4 @@
+//local secrets = import '../../environment.jsonnet';
 local defaults = {
   local defaults = self,
   // Convention: Top-level fields related to CRDs are public, other fields are hidden
@@ -16,7 +17,7 @@ local defaults = {
   alerting: {},
   namespaces:: ['default', 'kube-system', defaults.namespace],
   replicas: 2,
-  externalLabels: {},
+  externalLabels: { cluster: 'loki-test-eks'},
   enableFeatures: [],
   ruleSelector: {},
   commonLabels:: {
