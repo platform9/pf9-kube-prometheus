@@ -41,7 +41,7 @@ $(GOPATH):
 	bash $(CURRENT_DIR)/scripts/get-go-tools.sh
 	mkdir -p tmp/bin
 #   Pick the right environment file based on the CI job flag
-	cp $(CURRENT_DIR)/env/$(ENV_FILE) $(CURRENT_DIR)/environment.jsonnet
+	cp $(CURRENT_DIR)/jsonnet/kube-prometheus/env/$(ENV_FILE) $(CURRENT_DIR)/jsonnet/kube-prometheus/environment.jsonnet
 #	go install -a 'github.com/grafana/tanka/cmd/tk@v0.24.0'
 #	go install -a 'github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1'
 
