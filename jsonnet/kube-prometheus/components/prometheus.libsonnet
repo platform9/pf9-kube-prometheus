@@ -446,9 +446,9 @@ function(params) {
           },
           spec: {
               itemPath: environment_vars.kube_prometheus.remote_write.onepassword_path
-          }
-      }
-  }
+          },
+      },
+  },
 
   // Include thanos sidecar PrometheusRule only if thanos config was passed by user
   [if std.objectHas(params, 'thanos') && params.thanos != null then 'prometheusRuleThanosSidecar']: {
