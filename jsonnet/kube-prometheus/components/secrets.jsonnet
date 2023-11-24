@@ -1,7 +1,7 @@
 # Secrets for monitoring
 local environment_vars = import '../environment.jsonnet';
 {
-    remote_write_onepassword:{
+    onepassword_remote_write:{
         apiVersion: 'onepassword.com/v1',
         kind: 'OnePasswordItem',
         metadata: {
