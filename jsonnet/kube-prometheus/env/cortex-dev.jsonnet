@@ -6,8 +6,8 @@
 
         # prometheus remote_write config
         remote_write: {
-            url: 'https://internal.cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push',
-            onepassword_path: 'vaults/pf9-devops/items/cortex-dev-internal'
+            url: 'https://cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push',
+            onepassword_path: 'vaults/pf9-devops/items/cortex-dev-primary-basic-auth'
         },
     },
 }
