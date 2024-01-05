@@ -11,7 +11,7 @@ local defaults = {
     requests: { memory: '400Mi' },
   },
   scrapeInterval:: '2m',
-  scrapeTimeout:: '30s',  
+  scrapeTimeout:: '60s',  
   //TODO(paulfantom): remove alertmanagerName after release-0.10 and convert to plain 'alerting' object.
   alertmanagerName:: '',
   alerting: {},
