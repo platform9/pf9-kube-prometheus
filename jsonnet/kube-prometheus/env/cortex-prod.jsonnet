@@ -9,6 +9,9 @@
             url: 'https://internal.pf9cortex.platform9.net/api/prom/push',
             onepassword_path: 'vaults/pf9-devops/items/internal-remote-read-write'
         },
+        replicas: {
+            kube-state-metrics: 1
+        },        
     },
 }
 

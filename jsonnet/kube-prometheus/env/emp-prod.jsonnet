@@ -9,6 +9,9 @@
             url: 'https://pmkft.cortex.platform9.net/api/prom/push',
             onepassword_path: 'vaults/emp-prod/items/pmkft-remote-read-write'
         },
+        replicas: {
+            kube-state-metrics: 1
+        },        
     },
 }
 

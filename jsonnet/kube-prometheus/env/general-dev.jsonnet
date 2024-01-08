@@ -9,6 +9,9 @@
             url: 'https://pf9-kdu.cortex-dev-s3.infrastructure.rspc.platform9.horse/api/prom/push',
             onepassword_path: 'vaults/pf9-devops/items/pf9-kdu-cortex-dev-s3-auth'
         },
+        replicas: {
+            kube-state-metrics: 2
+        },
     },
 }
 
