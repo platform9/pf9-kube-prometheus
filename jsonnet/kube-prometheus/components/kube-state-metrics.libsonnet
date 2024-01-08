@@ -11,8 +11,8 @@ local defaults = {
   image:: error 'must provide image',
   kubeRbacProxyImage:: error 'must provide kubeRbacProxyImage',
   resources:: {
-    requests: { cpu: '10m', memory: '190Mi' },
-    limits: { cpu: '100m', memory: '250Mi' },
+    requests: { cpu: environment_vars.kube_prometheus.resources.kubeStateMetrics.requests.cpu, memory: environment_vars.kube_prometheus.resources.kubeStateMetrics.requests.memory },
+    limits: { cpu: environment_vars.kube_prometheus.resources.kubeStateMetrics.limits.cpu, memory: environment_vars.kube_prometheus.resources.kubeStateMetrics.limits.memory },
   },
 
   kubeRbacProxyMain:: {

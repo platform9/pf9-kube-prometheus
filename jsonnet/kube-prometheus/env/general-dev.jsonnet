@@ -12,6 +12,12 @@
         replicas: {
             kubeStateMetrics: 2
         },
+        resources:{
+            kubeStateMetrics:{
+               requests: { cpu: '20m', memory: '1Gi' },
+               limits: { cpu: '200m', memory: '2Gi' },
+            }
+        }
     },
 }
 
