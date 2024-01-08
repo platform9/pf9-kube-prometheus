@@ -10,7 +10,7 @@
             onepassword_path: 'vaults/pf9-devops/items/internal-remote-read-write'
         },
         replicas: {
-            kube-state-metrics: 1
+            kubeStateMetrics: 1
         },        
     },
 }

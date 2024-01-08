@@ -10,7 +10,7 @@
             onepassword_path: 'vaults/emp-prod/items/pmkft-remote-read-write'
         },
         replicas: {
-            kube-state-metrics: 1
+            kubeStateMetrics: 1
         },        
     },
 }

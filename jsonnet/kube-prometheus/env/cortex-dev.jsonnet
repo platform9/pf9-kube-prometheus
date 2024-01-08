@@ -10,7 +10,7 @@
             onepassword_path: 'vaults/pf9-devops/items/cortex-dev-primary-basic-auth'
         },
         replicas: {
-            kube-state-metrics: 1
+            kubeStateMetrics: 1
         },        
     },
 }
