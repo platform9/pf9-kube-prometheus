@@ -9,7 +9,6 @@ local defaults = {
   namespace:: error 'must provide namespace',
   version:: error 'must provide version',
   image:: error 'must provide image',
-  replicas: environment_vars.kube_prometheus.replicas.kubeStateMetrics,
   kubeRbacProxyImage:: error 'must provide kubeRbacProxyImage',
   resources:: {
     requests: { cpu: '10m', memory: '190Mi' },
@@ -154,6 +153,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
 
   deployment+: {
     spec+: {
+      replicas: environment_vars.kube_prometheus.replicas.kubeStateMetrics,
       template+: {
         metadata+: {
           annotations+: {
