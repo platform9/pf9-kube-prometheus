@@ -1,4 +1,5 @@
 local krp = import './kube-rbac-proxy.libsonnet';
+local environment_vars = import '../environment.jsonnet';
 
 local defaults = {
   local defaults = self,
