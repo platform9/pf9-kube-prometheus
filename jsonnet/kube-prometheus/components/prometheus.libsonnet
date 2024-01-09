@@ -386,6 +386,41 @@ function(params) {
                         action: "labeldrop",
                         regex: "^controller_revision_hash$"
                     },
+                    
+                    # Additional metric drop from the node exporter which were dropped before
+                    {
+                        action: "drop",
+                        regex: "(node_ipvs_.*|node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
+                        source_labels: ["__name__"]
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "pod_template_generation"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "controller_revision_hash"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "topology_kubernetes_io_region"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "(beta_)?kubernetes_io_arch"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "(beta_)?kubernetes_io_os"
+                    },
+
+                    # filter out any fs info from mounts we don't care about
+                    # (e.g. mounted by docker, systemd)
+                    {
+                        action: "drop",
+                        regex: "node_filesystem_[^;]+;(/var/lib/.+|/run.*)",
+                        source_labels: ["__name__","mountpoint"]
+                    },                    
                 ]
           }
       ],      
