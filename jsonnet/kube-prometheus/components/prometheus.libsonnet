@@ -386,12 +386,12 @@ function(params) {
                         action: "labeldrop",
                         regex: "^controller_revision_hash$"
                     },
-                    
+
                     # Additional metric drop from the node exporter which were dropped before
                     {
                         action: "drop",
                         regex: "(node_ipvs_.*|node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
-                        source_labels: ["__name__"]
+                        sourceLabels: ["__name__"]
                     },
                     {
                         action: "labeldrop",
@@ -419,7 +419,7 @@ function(params) {
                     {
                         action: "drop",
                         regex: "node_filesystem_[^;]+;(/var/lib/.+|/run.*)",
-                        source_labels: ["__name__","mountpoint"]
+                        sourceLabels: ["__name__","mountpoint"]
                     },                    
                 ]
           }
