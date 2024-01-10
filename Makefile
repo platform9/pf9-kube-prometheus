@@ -15,7 +15,28 @@ JSONNETFMT_ARGS=-n 2 --max-blank-lines 2 --string-style s --comment-style s
 
 KUBE_VERSION?="1.20.0"
 
-all: generate fmt test
+CURRENT_DIR := $(abspath .)
+# Dependencies
+GOPATH ?= $(CURRENT_DIR)/gopath
+GOPATH_DIR := $(GOPATH)
+NEWPATH := $(PATH):$(CURRENT_DIR)/go/bin:$(GOPATH)/bin
+
+ENVIRONMENT ?= default
+ENV_FILE ?= $(ENVIRONMENT).jsonnet
+
+all: generate fmt publish
+
+.PHONY: go-tools
+go-tools: $(GOPATH)
+
+$(GOPATH): export PATH=$(NEWPATH)
+$(GOPATH): export GOPATH=$(GOPATH_DIR)
+$(GOPATH): export GO111MODULE=on
+$(GOPATH):
+	bash $(CURRENT_DIR)/scripts/get-go-tools.sh
+	mkdir -p tmp/bin
+#   Pick the right environment file based on the CI job flag
+	cp $(CURRENT_DIR)/jsonnet/kube-prometheus/env/$(ENV_FILE) $(CURRENT_DIR)/jsonnet/kube-prometheus/environment.jsonnet
 
 .PHONY: clean
 clean:
@@ -23,7 +44,7 @@ clean:
 	git clean -Xfd .
 
 .PHONY: generate
-generate: manifests **.md
+generate: $(GOPATH) manifests **.md
 
 **.md: $(EMBEDMD_BIN) $(shell find examples) build.sh example.jsonnet
 	$(EMBEDMD_BIN) -w `find . -name "*.md" | grep -v vendor`
@@ -70,4 +91,13 @@ $(BIN_DIR):
 
 $(TOOLING): $(BIN_DIR)
 	@echo Installing tools from scripts/tools.go
-	@cd scripts && cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % go build -modfile=go.mod -o $(BIN_DIR) %
+	@cd scripts && cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % g$(CURRENT_DIR)/go/bin/go build -modfile=go.mod -o $(BIN_DIR) %
+
+.PHONY: publish
+publish:
+	rm -rf $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/grafana
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/alertmanager
+	mv $(CURRENT_DIR)/manifests/alertmanager-* $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/alertmanager/
+	mv $(CURRENT_DIR)/manifests/grafana-* $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/grafana/
+	cp -r $(CURRENT_DIR)/manifests/  $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/

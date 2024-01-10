@@ -1,3 +1,4 @@
+local environment_vars = import '../environment.jsonnet';
 local defaults = {
   local defaults = self,
   namespace: error 'must provide namespace',
@@ -11,7 +12,7 @@ local defaults = {
   alertmanagerName: error 'must provide alertmanagerName',
   namespaces: ['default', 'kube-system', defaults.namespace],
   replicas: 2,
-  externalLabels: {},
+  externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
   enableFeatures: [],
   commonLabels:: {
     'app.kubernetes.io/name': 'prometheus',
@@ -276,6 +277,102 @@ function(params) {
         labels: p._config.commonLabels,
       },
       externalLabels: p._config.externalLabels,
+      replicaExternalLabelName: "",
+      remoteWrite: [
+          {
+              basicAuth: {
+                  password: {
+                      key: "password",
+                      name: "remotewrite-basicauth-prometheus",
+                  },
+                  username: {
+                      key: "username",
+                      name: "remotewrite-basicauth-prometheus",
+                  }
+              },  
+              url: environment_vars.kube_prometheus.remote_write.url,
+              remoteTimeout: '2m',
+              # trade larger request sizes for request volume/rate
+              # this helps ease burden on the nginx proxy for authentication
+              queueConfig: {
+                  maxShards: 100,
+                  maxSamplesPerSend: 1000,
+                  capacity: 1000,  
+              },
+              tlsConfig: {
+                insecureSkipVerify: true,
+              },         
+              # filter out metrics globally that are expensive and/or we don't need
+              writeRelabelConfigs: [
+
+                    # standard issue go-generated series that no one looks at
+                    # (and are often redundant in cases such as consul)
+                    {
+                        action: "drop",
+                        regex: "go_.*",
+                        sourceLabels: ["__name__"]
+                    },
+
+                    # Drop the externalLabel with key 'prometheus_replica'
+                    {
+                        action: "labeldrop",
+                        regex: "prometheus_replica"
+                    },
+
+                    # the value of the "service" label (tacked on by the prometheus
+                    # operator) matches the "job" label, making it redundant
+                    {
+                        action: "labeldrop",
+                        regex: "^service$"
+                    },
+
+                    # kubernetes_sd_configs labels deemed redundant
+                    {
+                        action: "labeldrop",
+                        regex: "^pod_template_generation$"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "^controller_revision_hash$"
+                    },
+
+                    # Additional metric drop from the node exporter which were dropped before
+                    {
+                        action: "drop",
+                        regex: "(node_ipvs_.*|node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
+                        sourceLabels: ["__name__"]
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "pod_template_generation"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "controller_revision_hash"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "topology_kubernetes_io_region"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "(beta_)?kubernetes_io_arch"
+                    },
+                    {
+                        action: "labeldrop",
+                        regex: "(beta_)?kubernetes_io_os"
+                    },
+
+                    # filter out any fs info from mounts we don't care about
+                    # (e.g. mounted by docker, systemd)
+                    {
+                        action: "drop",
+                        regex: "node_filesystem_[^;]+;(/var/lib/.+|/run.*)",
+                        sourceLabels: ["__name__","mountpoint"]
+                    },                    
+                ]
+          }
+      ],            
       enableFeatures: p._config.enableFeatures,
       serviceAccountName: 'prometheus-' + p._config.name,
       podMonitorSelector: {},

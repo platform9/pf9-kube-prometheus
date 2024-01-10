@@ -7,9 +7,9 @@ local defaults = {
   version: error 'must provide version',
   image: error 'must provide version',
   kubeRbacProxyImage: error 'must provide kubeRbacProxyImage',
-  resources: {
-    requests: { cpu: '10m', memory: '190Mi' },
-    limits: { cpu: '100m', memory: '250Mi' },
+  resources:: {
+    requests: { cpu: environment_vars.kube_prometheus.resources.kubeStateMetrics.requests.cpu, memory: environment_vars.kube_prometheus.resources.kubeStateMetrics.requests.memory },
+    limits: { cpu: environment_vars.kube_prometheus.resources.kubeStateMetrics.limits.cpu, memory: environment_vars.kube_prometheus.resources.kubeStateMetrics.limits.memory },
   },
 
   kubeRbacProxyMain: {
@@ -113,6 +113,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
 
   deployment+: {
     spec+: {
+      replicas: environment_vars.kube_prometheus.replicas.kubeStateMetrics,
       template+: {
         metadata+: {
           annotations+: {
