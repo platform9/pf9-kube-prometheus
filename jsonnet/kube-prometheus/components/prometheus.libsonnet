@@ -370,6 +370,12 @@ function(params) {
                         sourceLabels: ["__name__"]
                     },
 
+                    # Drop the externalLabel with key 'prometheus_replica'
+                    {
+                        action: "labeldrop",
+                        regex: "prometheus_replica"
+                    },
+
                     # the value of the "service" label (tacked on by the prometheus
                     # operator) matches the "job" label, making it redundant
                     {
