@@ -91,7 +91,7 @@ $(BIN_DIR):
 
 $(TOOLING): $(BIN_DIR)
 	@echo Installing tools from scripts/tools.go
-	@cd scripts && cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % g$(CURRENT_DIR)/go/bin/go build -modfile=go.mod -o $(BIN_DIR) %
+	@cd scripts && cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % $(CURRENT_DIR)/go/bin/go build -modfile=go.mod -o $(BIN_DIR) %
 
 .PHONY: publish
 publish:
