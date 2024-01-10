@@ -10,13 +10,18 @@
             onepassword_path: 'vaults/pf9-devops/items/internal-remote-read-write'
         },
         replicas: {
-            kubeStateMetrics: 1
+            kubeStateMetrics: 1,
+            prometheusK8s: 2,
         },
         resources:{
             kubeStateMetrics:{
                requests: { cpu: '20m', memory: '1Gi' },
                limits: { cpu: '200m', memory: '2Gi' },
-            }
+            },
+            prometheusK8s:{
+               requests: { cpu: '1', memory: '1Gi' },
+               limits: { cpu: '2', memory: '4Gi' },
+            },
         },       
     },
 }

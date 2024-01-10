@@ -10,13 +10,18 @@
             onepassword_path: 'vaults/emp-prod/items/pmkft-remote-read-write'
         },
         replicas: {
-            kubeStateMetrics: 1
+            kubeStateMetrics: 1,
+            prometheusK8s: 2,
         },
         resources:{
             kubeStateMetrics:{
                requests: { cpu: '10m', memory: '500Mi' },
                limits: { cpu: '100m', memory: '1Gi' },
-            }
+            },
+            prometheusK8s:{
+               requests: { cpu: '1', memory: '1Gi' },
+               limits: { cpu: '2', memory: '4Gi' },
+            },
         },        
     },
 }
