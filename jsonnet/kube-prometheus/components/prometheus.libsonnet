@@ -18,6 +18,7 @@ local defaults = {
   namespaces:: ['default', 'kube-system', defaults.namespace],
   replicas: 2,
   externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
+  replicaExternalLabelName: ""
   enableFeatures: [],
   ruleSelector: {},
   commonLabels:: {
@@ -371,10 +372,10 @@ function(params) {
                     },
 
                     # Drop the externalLabel with key 'prometheus_replica'
-                    {
-                        action: "labeldrop",
-                        regex: "prometheus_replica"
-                    },
+                    #{
+                    #    action: "labeldrop",
+                    #    regex: "prometheus_replica"
+                    #},
 
                     # the value of the "service" label (tacked on by the prometheus
                     # operator) matches the "job" label, making it redundant
