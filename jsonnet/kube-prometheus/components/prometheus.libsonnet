@@ -18,7 +18,7 @@ local defaults = {
   namespaces:: ['default', 'kube-system', defaults.namespace],
   replicas: 2,
   externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
-  replicaExternalLabelName: ""
+  replicaExternalLabelName: "",
   enableFeatures: [],
   ruleSelector: {},
   commonLabels:: {
