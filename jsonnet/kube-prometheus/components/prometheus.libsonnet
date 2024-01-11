@@ -7,8 +7,9 @@ local defaults = {
   namespace:: error 'must provide namespace',
   version: error 'must provide version',
   image: error 'must provide image',
-  resources: {
-    requests: { memory: '400Mi' },
+  resources:: {
+    requests: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.requests.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.requests.memory },
+    limits: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.limits.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.limits.memory },
   },
   scrapeInterval:: '30s',
   scrapeTimeout:: '60s',  
@@ -16,7 +17,7 @@ local defaults = {
   alertmanagerName:: '',
   alerting: {},
   namespaces:: ['default', 'kube-system', defaults.namespace],
-  replicas: 2,
+  replicas: { cluster: environment_vars.kube_prometheus.replicas.prometheusK8s},
   externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
   replicaExternalLabelName: "",
   enableFeatures: [],
