@@ -315,7 +315,7 @@ function(params) {
     kind: 'PodDisruptionBudget',
     metadata: p._metadata,
     spec: {
-      minAvailable: 2,
+      minAvailable: 1,
       selector: {
         matchLabels: p._config.selectorLabels,
       },
@@ -329,7 +329,8 @@ function(params) {
       name: p._config.name,
     },
     spec: {
-      replicas: p._config.replicas,
+      #replicas: p._config.replicas,
+      replicas: { cluster: environment_vars.kube_prometheus.replicas.prometheusK8s},
       version: p._config.version,
       image: p._config.image,
       podMetadata: {
