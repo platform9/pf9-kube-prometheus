@@ -2,7 +2,7 @@ local kp =
   (import 'kube-prometheus/main.libsonnet') + {
     values+:: {
       common+: {
-        namespace: 'monitoring',
+        namespace: 'pf9-kube-monitoring',
       },
     },
   };
