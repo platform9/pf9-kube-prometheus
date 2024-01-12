@@ -8,6 +8,7 @@ local nodeExporter = import './components/node-exporter.libsonnet';
 local prometheusAdapter = import './components/prometheus-adapter.libsonnet';
 local prometheusOperator = import './components/prometheus-operator.libsonnet';
 local prometheus = import './components/prometheus.libsonnet';
+local environment_vars = import './environment.jsonnet';
 
 local platformPatch = import './platforms/platforms.libsonnet';
 
@@ -96,6 +97,7 @@ local utils = import './lib/utils.libsonnet';
       version: $.values.common.versions.prometheus,
       image: $.values.common.images.prometheus,
       name: 'k8s',
+      replicas: { cluster: environment_vars.kube_prometheus.replicas.prometheusK8s},
       alerting: {
         alertmanagers: [{
           namespace: $.values.common.namespace,

@@ -17,8 +17,7 @@ local defaults = {
   alertmanagerName:: '',
   alerting: {},
   namespaces:: ['default', 'kube-system', defaults.namespace],
-  #replicas: { cluster: environment_vars.kube_prometheus.replicas.prometheusK8s},
-  replicas: 4,
+  replicas: 2,
   externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
   enableFeatures: [],
   ruleSelector: {},
@@ -310,13 +309,13 @@ function(params) {
       kind: 'RoleList',
       items: [newSpecificRole(x) for x in p._config.namespaces],
     },
-
+  
   [if (defaults + params).replicas > 1 then 'podDisruptionBudget']: {
     apiVersion: 'policy/v1',
     kind: 'PodDisruptionBudget',
     metadata: p._metadata,
     spec: {
-      minAvailable: 2,
+      minAvailable: p._config.replicas/2,
       selector: {
         matchLabels: p._config.selectorLabels,
       },
