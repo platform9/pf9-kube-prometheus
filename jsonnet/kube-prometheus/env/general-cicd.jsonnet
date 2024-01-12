@@ -2,7 +2,7 @@
     kube_prometheus: {
         # canonical name for the cluster we're deploying on
         cluster_name: 'general-cicd',
-        namespace: 'monitoring',
+        namespace: 'pf9-kube-monitoring',
 
         # prometheus remote_write config
         remote_write: {
