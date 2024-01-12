@@ -7,7 +7,7 @@ local defaults = {
   namespace:: error 'must provide namespace',
   version: error 'must provide version',
   image: error 'must provide image',
-  resources: {
+  resources:: {
     requests: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.requests.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.requests.memory },
     limits: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.limits.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.limits.memory },
   },
