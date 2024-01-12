@@ -315,7 +315,7 @@ function(params) {
     kind: 'PodDisruptionBudget',
     metadata: p._metadata,
     spec: {
-      minAvailable: 1,
+      minAvailable: 2,
       selector: {
         matchLabels: p._config.selectorLabels,
       },
