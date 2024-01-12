@@ -7,7 +7,7 @@ local defaults = {
   namespace:: error 'must provide namespace',
   version: error 'must provide version',
   image: error 'must provide image',
-  resources: {
+  resources:x {
     requests: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.requests.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.requests.memory },
     limits: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.limits.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.limits.memory },
   },
@@ -19,7 +19,6 @@ local defaults = {
   namespaces:: ['default', 'kube-system', defaults.namespace],
   replicas: { cluster: environment_vars.kube_prometheus.replicas.prometheusK8s},
   externalLabels: { cluster: environment_vars.kube_prometheus.cluster_name},
-  replicaExternalLabelName: "",
   enableFeatures: [],
   ruleSelector: {},
   commonLabels:: {
