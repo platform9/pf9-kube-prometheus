@@ -330,7 +330,7 @@ function(params) {
     },
     spec: {
       #replicas: p._config.replicas,
-      replicas: {environment_vars.kube_prometheus.replicas.prometheusK8s},
+      replicas: environment_vars.kube_prometheus.replicas.prometheusK8s,
       version: p._config.version,
       image: p._config.image,
       podMetadata: {
