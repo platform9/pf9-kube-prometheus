@@ -399,7 +399,7 @@ function(params) {
                     # Additional metric drop from the node exporter which were dropped before
                     {
                         action: "drop",
-                        regex: "(node_ipvs_.*|node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
+                        regex: "(node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
                         sourceLabels: ["__name__"]
                     },
                     {
