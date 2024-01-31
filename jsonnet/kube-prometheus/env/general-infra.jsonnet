@@ -10,8 +10,8 @@
             onepassword_path: 'vaults/pf9-devops/items/pf9-kdu-cortex-dev-s3-auth'
         },
         replicas: {
-            kubeStateMetrics: 2,
-            prometheusK8s: 4,
+            kubeStateMetrics: 1,
+            prometheusK8s: 1,
         },
         resources:{
             kubeStateMetrics:{

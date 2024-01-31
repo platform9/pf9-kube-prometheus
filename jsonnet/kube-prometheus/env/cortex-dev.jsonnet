@@ -11,7 +11,7 @@
         },
         replicas: {
             kubeStateMetrics: 1,
-            prometheusK8s: 4,
+            prometheusK8s: 1,
         },
         resources:{
             kubeStateMetrics:{
@@ -19,8 +19,8 @@
                limits: { cpu: '100m', memory: '1Gi' },
             },
             prometheusK8s:{
-               requests: { cpu: '1', memory: '1Gi' },
-               limits: { cpu: '2', memory: '4Gi' },
+               requests: { cpu: '1', memory: '400Mi' },
+               limits: { cpu: '2', memory: '1Gi' },
             },
         },        
     },
