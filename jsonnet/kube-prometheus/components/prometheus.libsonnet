@@ -337,7 +337,6 @@ function(params) {
         labels: p.prometheus.metadata.labels,
       },
       externalLabels: p._config.externalLabels,
-      replicaExternalLabelName: "",
       remoteWrite: [
           {
               basicAuth: {
