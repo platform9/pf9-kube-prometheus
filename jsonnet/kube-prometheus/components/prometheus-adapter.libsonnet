@@ -10,7 +10,7 @@ local defaults = {
     requests: { cpu: '102m', memory: '180Mi' },
     limits: { cpu: '250m', memory: '180Mi' },
   },
-  replicas:: 1,
+  replicas:: 2,
   listenAddress:: '127.0.0.1',
   port:: 9100,
   commonLabels:: {
