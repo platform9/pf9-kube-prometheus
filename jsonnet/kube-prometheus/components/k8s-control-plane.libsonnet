@@ -268,6 +268,11 @@ function(params) {
             regex: 'apiserver_request_duration_seconds_bucket;(0.15|0.25|0.3|0.35|0.4|0.45|0.6|0.7|0.8|0.9|1.25|1.5|1.75|2.5|3|3.5|4.5|6|7|8|9|15|25|30|50)',
             action: 'drop',
           },
+          {
+            sourceLabels: ['__name__'],
+            regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|get_token_.*|go_gc_.*|grpc_client_.*|kube_apiserver_.*|node_authorizer_graph_.*|pod_security_.*|rest_client_.*|serviceaccount_.*|watch_cache_.*|workqueue_.*',
+            action: 'drop',
+          },
         ],
       }],
     },
