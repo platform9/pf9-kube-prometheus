@@ -128,6 +128,14 @@ function(params)
             tlsConfig: {
               insecureSkipVerify: true,
             },
+            metricRelabelings: [
+              // Drop unwanted metrics
+              {
+                sourceLabels: ['__name__'],
+                regex: 'go_gc_.*|go_go.*|prometheus_operator_.*',
+                action: 'drop',
+              },
+            ],
           },
         ],
       },
