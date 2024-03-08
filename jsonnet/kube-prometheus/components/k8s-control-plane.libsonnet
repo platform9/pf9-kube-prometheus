@@ -353,6 +353,11 @@ function(params) {
               regex: 'coredns_cache_misses_total',
               action: 'drop',
             },
+            {
+              sourceLabels: ['__name__'],
+              regex: 'coredns_.*|go_gc_.*|go_go.*',
+              action: 'drop',
+            },
           ],
         },
       ],
