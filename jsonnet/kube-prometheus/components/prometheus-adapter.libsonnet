@@ -200,6 +200,11 @@ function(params) {
                                       'workqueue_.*',  // Metrics related to the internal apiserver auth workqueues are not very useful to prometheus-adapter.
                                     ]) + ')',
             },
+            {
+              sourceLabels: ['__name__'],
+              action: 'drop',
+              regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|field_validation_request_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*',
+            },
           ],
         },
       ],
