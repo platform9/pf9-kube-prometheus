@@ -319,6 +319,14 @@ function(params) {
         tlsConfig: {
           insecureSkipVerify: true,
         },
+        metricRelabelings: [
+            // Drop a bunch of metrics which are disabled but still sent
+            {
+              sourceLabels: ['__name__'],
+              action: 'drop',
+              regex: 'blackbox_.*|go_gc_.*|go_go.*|promhttp_metric_.*',
+            },
+        ],
       }],
       selector: {
         matchLabels: bb._config.selectorLabels,
