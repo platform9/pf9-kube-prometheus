@@ -160,6 +160,11 @@ function(params) {
                                       'container_blkio_device_usage_total',
                                     ]) + ');.+',
             },
+            {
+              sourceLabels: ['__name__'],
+              regex: 'apiserver_.*|authentication_.*|csi_operations_.*|get_token_.*|go_gc_.*|go_go.*|^kubelet_(?!volume_).*$|machine_.*|node_namespace_.*|plugin_manager_.*|prober_probe_.*|rest_client_.*|storage_operation_.*|volume_manager_.*|workqueue_.*',
+              action: 'drop',
+            },
           ],
         },
         {
