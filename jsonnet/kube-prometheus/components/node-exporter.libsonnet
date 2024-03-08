@@ -177,6 +177,14 @@ function(params) {
         tlsConfig: {
           insecureSkipVerify: true,
         },
+        metricRelabelings: [
+          // Drop unwanted metrics
+          {
+            sourceLabels: ['__name__'],
+            regex: 'go_gc_.*|go_go.*|promhttp_metric_handler_.*',
+            action: 'drop',
+          },
+        ],
       }],
     },
   },
