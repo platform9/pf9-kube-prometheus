@@ -275,7 +275,7 @@ function(params) {
           },
           {
             sourceLabels: ['__name__'],
-            regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|get_token_.*|go_gc_.*|grpc_client_.*|kube_apiserver_.*|node_authorizer_graph_.*|pod_security_.*|rest_client_.*|serviceaccount_.*|watch_cache_.*|workqueue_.*',
+            regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|get_token_.*|go_gc_.*|go_memory_classes_.*|go_sched_.*|grpc_client_.*|kube_apiserver_.*|node_authorizer_graph_.*|pod_security_.*|rest_client_.*|serviceaccount_.*|watch_cache_.*|workqueue_.*',
             action: 'drop',
           },
         ],
