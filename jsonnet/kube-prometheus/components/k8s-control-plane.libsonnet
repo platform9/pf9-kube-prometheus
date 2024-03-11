@@ -162,7 +162,7 @@ function(params) {
             },
             {
               sourceLabels: ['__name__'],
-              regex: 'aggregator_.*|apiserver_.*|authentication_.*|csi_operations_.*|force_cleaned_failed_.*|get_token_.*|^go_(?!memstats_|threads).*$|^kubelet_(?!volume_).*$|machine_.*|node_namespace_.*|plugin_manager_.*|prober_probe_.*|reconstruct_volume_.*|rest_client_.*|storage_operation_.*|volume_manager_.*|workqueue_.*',
+              regex: 'aggregator_.*|apiserver_.*|authentication_.*|csi_operations_.*|force_cleaned_failed_.*|get_token_.*|^go_(?!memstats_|threads).*$|^kubelet_(?!volume_).*$|machine_.*|node_namespace_.*|plugin_manager_.*|prober_probe_.*|reconstruct_volume_.*|rest_client_.*|storage_operation_.*|volume_.*|workqueue_.*',
               action: 'drop',
             },
           ],
