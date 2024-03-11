@@ -162,7 +162,12 @@ function(params) {
             },
             {
               sourceLabels: ['__name__'],
-              regex: 'aggregator_.*|apiserver_.*|authentication_.*|csi_operations_.*|force_cleaned_failed_.*|get_token_.*|machine_.*|node_namespace_.*|^kubelet_(?!volume_).*$|plugin_manager_.*|prober_probe_.*|reconstruct_volume_.*|rest_client_.*|storage_operation_.*|volume_.*|workqueue_.*|go_.*',
+              regex: 'aggregator_.*|apiserver_.*|authentication_.*|csi_operations_.*|force_cleaned_failed_.*|get_token_.*|machine_.*|node_namespace_.*|plugin_manager_.*|prober_probe_.*|reconstruct_volume_.*|rest_client_.*|storage_operation_.*|volume_.*|workqueue_.*|go_.*',
+              action: 'drop',
+            },
+            {
+              sourceLabels: ['__name__'],
+              regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
               action: 'drop',
             },
           ],
