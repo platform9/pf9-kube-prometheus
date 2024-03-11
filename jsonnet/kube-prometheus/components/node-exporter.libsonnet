@@ -178,15 +178,9 @@ function(params) {
           insecureSkipVerify: true,
         },
         metricRelabelings: [
-          // Drop unwanted metrics
           {
             sourceLabels: ['__name__'],
-            regex: 'promhttp_metric_handler_.*',
-            action: 'drop',
-          },
-          {
-            sourceLabels: ['__name__'],
-            regex: '^go_(?!memstats_|threads).*$',
+            regex: 'promhttp_metric_handler_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
             action: 'drop',
           },
         ],
