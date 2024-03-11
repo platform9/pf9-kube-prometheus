@@ -181,7 +181,7 @@ function(params) {
           // Drop unwanted metrics
           {
             sourceLabels: ['__name__'],
-            regex: 'go_gc_.*|go_go.*|promhttp_metric_handler_.*',
+            regex: '^go_(?!memstats_|threads).*$|promhttp_metric_handler_.*',
             action: 'drop',
           },
         ],
