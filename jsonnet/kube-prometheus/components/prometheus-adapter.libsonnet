@@ -203,7 +203,12 @@ function(params) {
             {
               sourceLabels: ['__name__'],
               action: 'drop',
-              regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|field_validation_request_.*|^go_(?!memstats_|threads).*$',
+              regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|field_validation_request_.*',
+            },
+            {
+              sourceLabels: ['__name__'],
+              action: 'drop',
+              regex: '^go_(?!memstats_|threads).*$',
             },
           ],
         },
