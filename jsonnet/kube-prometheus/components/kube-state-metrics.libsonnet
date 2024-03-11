@@ -207,7 +207,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
               {
                 // Dropping unwanted metric from kube-state-metrics
                 sourceLabels: ['__name__'],
-                regex: 'go_gc_.*|go_go.*|http_request_.*|^kube_(?!node_|pod_|deployment_).*$',
+                regex: '^go_(?!memstats_|threads).*$|http_request_.*|^kube_(?!node_|pod_|deployment_).*$',
                 action: 'drop',
               },
             ],
