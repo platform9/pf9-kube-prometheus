@@ -324,7 +324,12 @@ function(params) {
             {
               sourceLabels: ['__name__'],
               action: 'drop',
-              regex: 'blackbox_.*|^go_(?!memstats_|threads).*$|promhttp_metric_.*',
+              regex: 'blackbox_.*|promhttp_metric_.*',
+            },
+            {
+              sourceLabels: ['__name__'],
+              action: 'drop',
+              regex: '^go_(?!memstats_|threads).*$',
             },
         ],
       }],
