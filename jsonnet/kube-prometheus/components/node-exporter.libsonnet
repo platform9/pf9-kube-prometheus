@@ -180,7 +180,7 @@ function(params) {
         metricRelabelings: [
           {
             sourceLabels: ['__name__'],
-            regex: 'promhttp_metric_handler_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
+            regex: 'promhttp_metric_handler_.*|go_.*',
             action: 'drop',
           },
         ],
