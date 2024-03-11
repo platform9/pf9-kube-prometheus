@@ -207,7 +207,12 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
               {
                 // Dropping unwanted metric from kube-state-metrics
                 sourceLabels: ['__name__'],
-                regex: 'http_request_.*|go_.*|^kube_(?!node_|pod_|deployment_).*$',
+                regex: 'http_request_.*|go_.*',
+                action: 'drop',
+              },
+              {
+                sourceLabels: ['__name__'],
+                regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
                 action: 'drop',
               },
             ],
