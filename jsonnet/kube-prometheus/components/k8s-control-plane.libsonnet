@@ -167,7 +167,7 @@ function(params) {
             },
             {
               sourceLabels: ['__name__'],
-              regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
+              regex: 'kubelet_(cgroup|container|cpu|evented|eviction|graceful|http|lifecycle|orphan|pleg|pod|run|runtime|topology)_.*',
               action: 'drop',
             },
           ],
