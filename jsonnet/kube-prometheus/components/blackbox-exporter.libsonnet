@@ -323,7 +323,7 @@ function(params) {
             {
               sourceLabels: ['__name__'],
               action: 'drop',
-              regex: 'blackbox_.*|promhttp_metric_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
+              regex: 'blackbox_.*|promhttp_metric_.*|go_.*',
             },
         ],
       }],
