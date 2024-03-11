@@ -275,7 +275,7 @@ function(params) {
           },
           {
             sourceLabels: ['__name__'],
-            regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|field_validation_request_.*|get_token_.*|grpc_client_.*|kube_apiserver_.*|node_authorizer_graph_.*|pod_security_.*|rest_client_.*|serviceaccount_.*|watch_cache_.*|workqueue_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
+            regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|field_validation_request_.*|get_token_.*|grpc_client_.*|kube_apiserver_.*|node_authorizer_graph_.*|pod_security_.*|rest_client_.*|serviceaccount_.*|watch_cache_.*|workqueue_.*|go_.*',
             action: 'drop',
           },
         ],
@@ -355,7 +355,7 @@ function(params) {
             },
             {
               sourceLabels: ['__name__'],
-              regex: 'coredns_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
+              regex: 'coredns_.*|go_.*',
               action: 'drop',
             },
           ],
