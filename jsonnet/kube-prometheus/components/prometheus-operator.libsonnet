@@ -132,12 +132,7 @@ function(params)
               // Drop unwanted metrics
               {
                 sourceLabels: ['__name__'],
-                regex: 'prometheus_operator_.*',
-                action: 'drop',
-              },
-              {
-                sourceLabels: ['__name__'],
-                regex: '^go_(?!memstats_|threads).*$',
+                regex: 'prometheus_operator_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
                 action: 'drop',
               },
             ],
