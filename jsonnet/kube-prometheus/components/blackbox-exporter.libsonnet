@@ -320,16 +320,10 @@ function(params) {
           insecureSkipVerify: true,
         },
         metricRelabelings: [
-            // Drop a bunch of metrics which are disabled but still sent
             {
               sourceLabels: ['__name__'],
               action: 'drop',
-              regex: 'blackbox_.*|promhttp_metric_.*',
-            },
-            {
-              sourceLabels: ['__name__'],
-              action: 'drop',
-              regex: '^go_(?!memstats_|threads).*$',
+              regex: 'blackbox_.*|promhttp_metric_.*|go_cgo_.*|go_cpu_*|go_gc_.*|go_sched_.*|go_memory_.*|go_go.*',
             },
         ],
       }],
