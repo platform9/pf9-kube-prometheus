@@ -36,7 +36,7 @@ local defaults = {
   mixin:: {
     ruleLabels: {},
     _config: {
-      prometheusSelector: ''job="prometheus-' + defaults.name + '",namespace="' + defaults.namespace + '"', metrics_path="/metrics"',
+      prometheusSelector: 'job="prometheus-' + defaults.name + '",namespace="' + defaults.namespace + '", metrics_path="/metrics"',
       prometheusName: '{{$labels.namespace}}/{{$labels.pod}}',
       // TODO: remove `thanosSelector` after 0.10.0 release.
       thanosSelector: 'job="thanos-sidecar"',
