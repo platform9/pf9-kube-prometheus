@@ -490,7 +490,6 @@ function(params) {
       selector: {
         matchLabels: {
           'app.kubernetes.io/name': 'prometheus',
-          'app.kubernetes.io/instance': p._config.name,
         },
       },
       endpoints: [
