@@ -472,6 +472,7 @@ function(params) {
         matchLabels: p._config.selectorLabels,
       },
       endpoints: [
+        { port: 9090, interval: p._config.scrapeInterval },
         { port: 'web', interval: p._config.scrapeInterval },
         { port: 'reloader-web', interval: p._config.scrapeInterval },
       ],     
