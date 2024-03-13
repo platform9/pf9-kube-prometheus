@@ -472,8 +472,30 @@ function(params) {
         matchLabels: p._config.selectorLabels,
       },
       endpoints: [
-        { port: 'web', interval: p._config.scrapeInterval },
-        { port: 'reloader-web', interval: p._config.scrapeInterval },
+        {
+          port: 'web', 
+          interval: p._config.scrapeInterval,
+          scheme: 'https',
+          honorLabels: true,
+          bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
+          relabelings: [],
+          metricRelabelings: [],
+          tlsConfig: {
+            insecureSkipVerify: true,
+          },
+        },
+        {
+          port: 'reloader-web',
+          interval: p._config.scrapeInterval,
+          scheme: 'https',
+          honorLabels: true,
+          bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
+          relabelings: [],
+          metricRelabelings: [],
+          tlsConfig: {
+            insecureSkipVerify: true,
+          },
+        },
       ],     
     },
   },
