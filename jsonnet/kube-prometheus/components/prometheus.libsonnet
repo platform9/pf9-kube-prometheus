@@ -478,6 +478,27 @@ function(params) {
     },
   },
 
+  // Add the self-monitoring ServiceMonitor here
+  serviceMonitorSelf: {
+    apiVersion: 'monitoring.coreos.com/v1',
+    kind: 'ServiceMonitor',
+    metadata: p._metadata {
+      name: 'prometheus-self',
+    },
+    spec: {
+      jobLabel: 'app.kubernetes.io/name',
+      selector: {
+        matchLabels: {
+          'app.kubernetes.io/name': 'prometheus',
+          'app.kubernetes.io/instance': p._config.name,
+        },
+      },
+      endpoints: [
+        { port: 'web', interval: p._config.scrapeInterval },
+      ],
+    },
+  },
+
   // Include thanos sidecar PrometheusRule only if thanos config was passed by user
   [if std.objectHas(params, 'thanos') && params.thanos != null then 'prometheusRuleThanosSidecar']: {
     apiVersion: 'monitoring.coreos.com/v1',
