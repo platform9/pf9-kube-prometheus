@@ -13,15 +13,6 @@ local defaults = {
   },
   scrapeInterval:: '30s',
   scrapeTimeout:: '60s',
-  // Enable self-scraping job
-  selfScrapeJob: {
-    job_name: 'prometheus',
-    static_configs: [
-      {
-        targets: ['localhost:9090'],  // Assuming Prometheus is running on the default port
-      },
-    ],
-  },
   //TODO(paulfantom): remove alertmanagerName after release-0.10 and convert to plain 'alerting' object.
   alertmanagerName:: '',
   alerting: {},
