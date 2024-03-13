@@ -470,7 +470,7 @@ function(params) {
     spec: {
       jobLabel: 'app.kubernetes.io/name',
       selector: {
-        matchLabels: p._config.selectorLabels,
+        'app.kubernetes.io/name': 'prometheus',
       },
       endpoints: [
         { port: 'web', interval: p._config.scrapeInterval },
