@@ -468,6 +468,7 @@ function(params) {
     kind: 'ServiceMonitor',
     metadata: p._metadata,
     spec: {
+      jobLabel: 'app.kubernetes.io/name',
       selector: {
         matchLabels: p._config.selectorLabels,
       },
@@ -475,26 +476,6 @@ function(params) {
         { port: 'web', interval: p._config.scrapeInterval },
         { port: 'reloader-web', interval: p._config.scrapeInterval },
       ],     
-    },
-  },
-
-  // Add the self-monitoring ServiceMonitor here
-  serviceMonitorSelf: {
-    apiVersion: 'monitoring.coreos.com/v1',
-    kind: 'ServiceMonitor',
-    metadata: p._metadata {
-      name: 'prometheus-self',
-    },
-    spec: {
-      jobLabel: 'app.kubernetes.io/name',
-      selector: {
-        matchLabels: {
-          'app.kubernetes.io/name': 'prometheus',
-        },
-      },
-      endpoints: [
-        { port: 'web', interval: p._config.scrapeInterval },
-      ],
     },
   },
 
