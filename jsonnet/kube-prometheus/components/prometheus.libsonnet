@@ -442,7 +442,7 @@ function(params) {
       ruleSelector: p._config.ruleSelector,
       scrapeConfigSelector: {},
       scrapeConfigNamespaceSelector: {},
-      serviceMonitorSelector: p._metadata,
+      serviceMonitorSelector: {matchLabels: p._config.selectorLabels},
       serviceMonitorNamespaceSelector: {},
       nodeSelector: { 'kubernetes.io/os': 'linux' },
       resources: p._config.resources,
