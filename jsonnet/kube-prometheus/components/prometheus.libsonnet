@@ -442,9 +442,7 @@ function(params) {
       ruleSelector: p._config.ruleSelector,
       scrapeConfigSelector: {},
       scrapeConfigNamespaceSelector: {},
-      serviceMonitorSelector: {
-        matchLabels: p._config.selectorLabels,
-      },
+      serviceMonitorSelector: {},
       serviceMonitorNamespaceSelector: {},
       nodeSelector: { 'kubernetes.io/os': 'linux' },
       resources: p._config.resources,
@@ -472,7 +470,11 @@ function(params) {
     spec: {
       jobLabel: 'app.kubernetes.io/name',
       selector: {
-        matchLabels: p._config.selectorLabels,
+        matchLabels: {
+          'app.kubernetes.io/name': 'prometheus',
+          'app.kubernetes.io/part-of': 'kube-prometheus',
+          'app.kubernetes.io/instance': 'k8s',
+        },
       },
       endpoints: [
         { port: 'web', interval: p._config.scrapeInterval },
