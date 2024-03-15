@@ -488,7 +488,7 @@ function(params) {
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_m|remote_storage_shard|tsdb_c|tsdb_l|tsdb_m|tsdb_o|tsdb_r|tsdb_t|tsdb_v|tsdb_w|).*',
+              regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_m|remote_storage_shard|tsdb_c|tsdb_l|tsdb_m|tsdb_o|tsdb_r|tsdb_t|tsdb_v|tsdb_w|w).*',
               action: 'drop',
             },
           ],
