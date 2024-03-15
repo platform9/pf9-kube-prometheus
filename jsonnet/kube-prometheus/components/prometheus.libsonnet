@@ -482,13 +482,13 @@ function(params) {
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(http_response|notifications|remote_storage_metadata|remote_storage_string|rule_group_interval|rule_group_last|sd_azure|sd_consul|sd_dns|sd_http|sd_linode|sd_nomad|target_reload|target_scrape|target_sync|template|treecache)_.*',
+              regex: 'prometheus_(http_response|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|prometheus_tsdb_exemplar|tsdb_isolation|)_.*',
               action: 'drop',
             },
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_shard|sd_f|sd_k|w|tsdb_e|tsdb_l|tsdb_m|tsdb_o|tsdb_to|tsdb_v).*',
+              regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_m|remote_storage_shard|tsdb_c|tsdb_l|tsdb_m|tsdb_o|tsdb_r|tsdb_t|tsdb_v|tsdb_w).*',
               action: 'drop',
             },
           ],
@@ -500,13 +500,13 @@ function(params) {
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(http_response|notifications|remote_storage_metadata|remote_storage_string|rule_group_interval|rule_group_last|sd_azure|sd_consul|sd_dns|sd_http|sd_linode|sd_nomad|target_reload|target_scrape|target_sync|template|treecache)_.*',
+              regex: 'prometheus_(http_response|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|prometheus_tsdb_exemplar|tsdb_isolation|)_.*',
               action: 'drop',
             },
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_shard|sd_f|sd_k|w|tsdb_e|tsdb_l|tsdb_m|tsdb_o|tsdb_to|tsdb_v).*',
+              regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_m|remote_storage_shard|tsdb_c|tsdb_l|tsdb_m|tsdb_o|tsdb_r|tsdb_t|tsdb_v|tsdb_w).*',
               action: 'drop',
             },
           ],
