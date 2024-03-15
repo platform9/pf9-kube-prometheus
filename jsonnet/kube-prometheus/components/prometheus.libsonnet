@@ -482,7 +482,7 @@ function(params) {
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(http_response|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|prometheus_tsdb_exemplar|tsdb_isolation|)_.*',
+              regex: 'prometheus_(engine|http|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|tsdb_exemplar|tsdb_isolation)_.*',
               action: 'drop',
             },
             {
@@ -500,7 +500,7 @@ function(params) {
             {
               // Dropping unwanted metrics
               sourceLabels: ['__name__'],
-              regex: 'prometheus_(http_response|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|prometheus_tsdb_exemplar|tsdb_isolation|)_.*',
+              regex: 'prometheus_(engine|http|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|tsdb_exemplar|tsdb_isolation)_.*',
               action: 'drop',
             },
             {
