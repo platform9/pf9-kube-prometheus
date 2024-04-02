@@ -6,12 +6,12 @@
 
         # prometheus remote_write config
         remote_write: {
-            url: 'https://internal.pf9cortex.platform9.net/api/prom/push',
+            url: 'https://pf9cortex.platform9.net/api/prom/push',
             onepassword_path: 'vaults/pf9-devops/items/internal-remote-read-write'
         },
         replicas: {
-            kubeStateMetrics: 1,
-            prometheusK8s: 2,
+            kubeStateMetrics: 2,
+            prometheusK8s: 1,
         },
         resources:{
             kubeStateMetrics:{
