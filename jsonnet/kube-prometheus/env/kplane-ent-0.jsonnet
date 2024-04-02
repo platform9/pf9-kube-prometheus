@@ -11,7 +11,7 @@
         },
         replicas: {
             kubeStateMetrics: 2,
-            prometheusK8s: 4,
+            prometheusK8s: 1,
         },
         resources:{
             kubeStateMetrics:{
