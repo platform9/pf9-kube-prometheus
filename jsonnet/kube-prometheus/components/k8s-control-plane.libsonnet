@@ -6,8 +6,6 @@ local defaults = {
     'app.kubernetes.io/name': 'kube-prometheus',
     'app.kubernetes.io/part-of': 'kube-prometheus',
   },
-  scrapeInterval:: '2m',
-  scrapeTimeout:: '30s',
   mixin: {
     ruleLabels: {},
     _config: {
@@ -62,7 +60,7 @@ function(params) {
       jobLabel: 'app.kubernetes.io/name',
       endpoints: [{
         port: 'https-metrics',
-        interval: k8s._config.scrapeInterval,
+        interval: '2m',
         scheme: 'https',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         tlsConfig: { insecureSkipVerify: true },
@@ -90,7 +88,7 @@ function(params) {
         {
           port: 'https-metrics',
           scheme: 'https',
-          interval: k8s._config.scrapeInterval,
+          interval: '2m',
           honorLabels: true,
           tlsConfig: { insecureSkipVerify: true },
           bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
@@ -145,7 +143,7 @@ function(params) {
           port: 'https-metrics',
           scheme: 'https',
           path: '/metrics/cadvisor',
-          interval: k8s._config.scrapeInterval,
+          interval: '2m',
           honorLabels: true,
           honorTimestamps: false,
           tlsConfig: {
@@ -203,7 +201,7 @@ function(params) {
           port: 'https-metrics',
           scheme: 'https',
           path: '/metrics/probes',
-          interval: k8s._config.scrapeInterval,
+          interval: '2m',
           honorLabels: true,
           metricRelabelings: [
             // Drop a bunch of metrics which are disabled but still sent, see
@@ -276,7 +274,7 @@ function(params) {
       jobLabel: 'app.kubernetes.io/name',
       endpoints: [{
         port: 'https-metrics',
-        interval: k8s._config.scrapeInterval,
+        interval: '2m',
         scheme: 'https',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         tlsConfig: {
@@ -320,7 +318,7 @@ function(params) {
       },
       endpoints: [{
         port: 'https',
-        interval: k8s._config.scrapeInterval,
+        interval: '2m',
         scheme: 'https',
         tlsConfig: {
           caFile: '/var/run/secrets/kubernetes.io/serviceaccount/ca.crt',
@@ -421,7 +419,7 @@ function(params) {
       },
       endpoints: [{
         port: 'metrics',
-        interval: k8s._config.scrapeInterval,
+        interval: '2m',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         metricRelabelings: [
           // Drop deprecated metrics
