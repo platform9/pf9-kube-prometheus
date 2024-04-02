@@ -159,6 +159,25 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
                 action: 'labeldrop',
               },
             ],
+            metricRelabelings: [
+              {
+                // Dropping metric deprecated from kube-state-metrics 2.6.0 version
+                sourceLabels: ['__name__'],
+                regex: 'kube_endpoint_address_not_ready|kube_endpoint_address_available',
+                action: 'drop',
+              },
+              {
+                // Dropping unwanted metric from kube-state-metrics
+                sourceLabels: ['__name__'],
+                regex: 'http_request_.*|go_.*',
+                action: 'drop',
+              },
+              {
+                sourceLabels: ['__name__'],
+                regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
+                action: 'drop',
+              },
+            ],
             tlsConfig: {
               insecureSkipVerify: true,
             },
@@ -168,6 +187,25 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
             scheme: 'https',
             interval: ksm._config.scrapeInterval,
             bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
+            metricRelabelings: [
+              {
+                // Dropping metric deprecated from kube-state-metrics 2.6.0 version
+                sourceLabels: ['__name__'],
+                regex: 'kube_endpoint_address_not_ready|kube_endpoint_address_available',
+                action: 'drop',
+              },
+              {
+                // Dropping unwanted metric from kube-state-metrics
+                sourceLabels: ['__name__'],
+                regex: 'http_request_.*|go_.*',
+                action: 'drop',
+              },
+              {
+                sourceLabels: ['__name__'],
+                regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
+                action: 'drop',
+              },
+            ],
             tlsConfig: {
               insecureSkipVerify: true,
             },
