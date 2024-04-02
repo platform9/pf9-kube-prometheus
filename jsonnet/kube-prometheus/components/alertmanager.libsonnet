@@ -160,7 +160,7 @@ function(params) {
         } + am._config.selectorLabels,
       },
       endpoints: [
-        { port: 'web', interval: '30s' },
+        { port: 'web', interval: '2m' },
       ],
     },
   },
