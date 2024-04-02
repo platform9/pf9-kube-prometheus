@@ -4,8 +4,9 @@ local defaults = {
   namespace: error 'must provide namespace',
   version: error 'must provide version',
   image: error 'must provide image',
-  resources: {
-    requests: { memory: '400Mi' },
+  resources:: {
+    requests: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.requests.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.requests.memory },
+    limits: { cpu: environment_vars.kube_prometheus.resources.prometheusK8s.limits.cpu, memory: environment_vars.kube_prometheus.resources.prometheusK8s.limits.memory },
   },
 
   name: error 'must provide name',
@@ -270,7 +271,7 @@ function(params) {
       labels: { prometheus: p._config.name } + p._config.commonLabels,
     },
     spec: {
-      replicas: p._config.replicas,
+      replicas: environment_vars.kube_prometheus.replicas.prometheusK8s,
       version: p._config.version,
       image: p._config.image,
       podMetadata: {
