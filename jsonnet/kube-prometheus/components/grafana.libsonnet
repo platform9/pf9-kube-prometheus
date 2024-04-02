@@ -101,7 +101,7 @@ function(params) {
       },
       endpoints: [{
         port: 'http',
-        interval: '15s',
+        interval: '2m',
       }],
     },
   },
