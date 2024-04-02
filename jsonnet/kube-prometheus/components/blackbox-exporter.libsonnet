@@ -9,6 +9,8 @@ local defaults = {
     requests: { cpu: '10m', memory: '20Mi' },
     limits: { cpu: '20m', memory: '40Mi' },
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',
   commonLabels:: {
     'app.kubernetes.io/name': 'blackbox-exporter',
     'app.kubernetes.io/version': defaults.version,
@@ -281,6 +283,13 @@ function(params) {
           tlsConfig: {
             insecureSkipVerify: true,
           },
+          metricRelabelings: [
+              {
+                sourceLabels: ['__name__'],
+                action: 'drop',
+                regex: 'blackbox_.*|promhttp_metric_.*|go_.*',
+              },
+          ],
         }],
         selector: {
           matchLabels: bb._config.selectorLabels,
