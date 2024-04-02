@@ -314,10 +314,10 @@ function(params) {
                     },
 
                     # Drop the externalLabel with key 'prometheus_replica'
-                    {
-                        action: "labeldrop",
-                        regex: "prometheus_replica"
-                    },
+                    #{
+                    #    action: "labeldrop",
+                    #    regex: "prometheus_replica"
+                    #},
 
                     # the value of the "service" label (tacked on by the prometheus
                     # operator) matches the "job" label, making it redundant
@@ -339,7 +339,7 @@ function(params) {
                     # Additional metric drop from the node exporter which were dropped before
                     {
                         action: "drop",
-                        regex: "(node_ipvs_.*|node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
+                        regex: "(node_network_(address_assign_type|device_id|protocol_type|carrier_changes_total))",
                         sourceLabels: ["__name__"]
                     },
                     {
@@ -416,7 +416,27 @@ function(params) {
       },
       endpoints: [{
         port: 'web',
-        interval: '30s',
+        interval: '2m',
+        metricRelabelings: [
+          {
+            // Dropping unwanted metrics
+            sourceLabels: ['__name__'],
+            regex: 'prometheus_(engine|http|notifications|remote_storage_string|rule_group|sd|target|template|treecache|tsdb_block|tsdb_data|tsdb_exemplar|tsdb_isolation)_.*',
+            action: 'drop',
+          },
+          {
+            // Dropping unwanted metrics
+            sourceLabels: ['__name__'],
+            regex: 'prometheus_(remote_storage_e|remote_storage_h|remote_storage_m|remote_storage_shard|tsdb_c|tsdb_l|tsdb_m|tsdb_o|tsdb_r|tsdb_t|tsdb_v|tsdb_w|w).*',
+            action: 'drop',
+          },
+          {
+            // Dropping unwanted metrics
+            sourceLabels: ['__name__'],
+            regex: 'go_.*|net_conntrack_.*|promhttp_metric_.*|reloader_.*',
+            action: 'drop',
+          },
+        ],
       }],
     },
   },
