@@ -7,7 +7,7 @@
 
         # prometheus remote_write config
         remote_write: {
-            url: 'https://pmkft.pf9cortex.platform9.net/api/prom/push',
+            url: 'https://pf9-kdu.pf9cortex.platform9.net/api/prom/push',
             onepassword_path: 'vaults/pf9-devops/items/internal-remote-read-write'
         },
         replicas: {
