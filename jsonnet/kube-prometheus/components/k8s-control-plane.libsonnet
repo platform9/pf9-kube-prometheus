@@ -6,6 +6,8 @@ local defaults = {
     'app.kubernetes.io/name': 'kube-prometheus',
     'app.kubernetes.io/part-of': 'kube-prometheus',
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',
   mixin: {
     ruleLabels: {},
     _config: {
@@ -419,7 +421,7 @@ function(params) {
       },
       endpoints: [{
         port: 'metrics',
-        interval: '15s',
+        interval: '30s',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         metricRelabelings: [
           // Drop deprecated metrics
