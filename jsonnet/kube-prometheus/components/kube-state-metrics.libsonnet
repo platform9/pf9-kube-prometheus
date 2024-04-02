@@ -19,7 +19,7 @@ local defaults = {
       requests+: { cpu: '20m' },
     },
   },
-  scrapeInterval: '30s',
+  scrapeInterval: '2m',
   scrapeTimeout: '30s',
   commonLabels:: {
     'app.kubernetes.io/name': defaults.name,
