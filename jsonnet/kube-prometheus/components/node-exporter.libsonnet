@@ -146,7 +146,7 @@ function(params) {
       endpoints: [{
         port: 'https',
         scheme: 'https',
-        interval: '15s',
+        interval: '2m',
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         relabelings: [
           {
@@ -160,6 +160,13 @@ function(params) {
         tlsConfig: {
           insecureSkipVerify: true,
         },
+        metricRelabelings: [
+          {
+            sourceLabels: ['__name__'],
+            regex: 'promhttp_metric_handler_.*|go_.*',
+            action: 'drop',
+          },
+        ]
       }],
     },
   },
