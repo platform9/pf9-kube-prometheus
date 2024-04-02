@@ -9,8 +9,6 @@ local defaults = {
     requests: { cpu: '10m', memory: '20Mi' },
     limits: { cpu: '20m', memory: '40Mi' },
   },
-  scrapeInterval:: '2m',
-  scrapeTimeout:: '30s',
   commonLabels:: {
     'app.kubernetes.io/name': 'blackbox-exporter',
     'app.kubernetes.io/version': defaults.version,
@@ -276,7 +274,7 @@ function(params) {
       spec: {
         endpoints: [{
           bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
-          interval: '30s',
+          interval: '2m',
           path: '/metrics',
           port: 'https',
           scheme: 'https',
