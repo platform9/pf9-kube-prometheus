@@ -151,6 +151,11 @@ function(params) {
         verbs: ['get'],
       },
       {
+        apiGroups: [''],
+        resources: ['services', 'endpoints', 'pods'],
+        verbs: ['get', 'list', 'watch'],
+      },
+      {
         nonResourceURLs: ['/metrics'],
         verbs: ['get'],
       },
