@@ -45,6 +45,7 @@ function(params)
     local po = self,
     // declare variable as a field to allow overriding options and to have unified API across all components
     _config:: config,
+    args:: '--secret-field-selector=type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1,type!=external-api.pf9.io/service-account',
     mixin:: (import 'github.com/prometheus-operator/prometheus-operator/jsonnet/mixin/mixin.libsonnet') +
             (import 'github.com/kubernetes-monitoring/kubernetes-mixin/lib/add-runbook-links.libsonnet') {
               _config+:: po._config.mixin._config,
@@ -127,9 +128,6 @@ function(params)
     }),
 
     deployment+: {
-      args: [
-        '--secret-field-selector=type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1,type!=external-api.pf9.io/service-account',
-      ],
       spec+: {
         template+: {
           spec+: {
