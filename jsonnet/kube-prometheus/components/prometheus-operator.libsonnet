@@ -131,8 +131,6 @@ function(params)
         template+: {
           spec+: {
             containers+: [kubeRbacProxy],
-            containers+: [prometheusOperator],
-              args:: '--secret-field-selector=type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1,type!=external-api.pf9.io/service-account',
           },
         },
       },
