@@ -49,9 +49,6 @@ function(params)
             (import 'github.com/kubernetes-monitoring/kubernetes-mixin/lib/add-runbook-links.libsonnet') {
               _config+:: po._config.mixin._config,
             },
-    args: [
-      '--secret-field-selector=type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1,type!=external-api.pf9.io/service-account',
-    ],
 
     prometheusRule: {
       apiVersion: 'monitoring.coreos.com/v1',
@@ -130,6 +127,9 @@ function(params)
     }),
 
     deployment+: {
+      args: [
+        '--secret-field-selector=type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1,type!=external-api.pf9.io/service-account',
+      ],
       spec+: {
         template+: {
           spec+: {
