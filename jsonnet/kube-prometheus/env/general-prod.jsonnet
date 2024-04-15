@@ -9,7 +9,7 @@
         # prometheus remote_write config
         remote_write: {
             url: 'https://infra.pf9cortex.platform9.net/api/prom/push',
-            onepassword_path: 'vaults/pf9-devops/items/prod-infra-remote-read-write'
+            onepassword_path: 'vaults/pf9-devops/items/infra-remote-read-write'
         },
         replicas: {
             kubeStateMetrics: 2,
