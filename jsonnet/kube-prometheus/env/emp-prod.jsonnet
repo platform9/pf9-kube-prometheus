@@ -7,7 +7,7 @@
         # prometheus remote_write config
         remote_write: {
             url: 'https://pf9-emp.pf9cortex.platform9.net/api/prom/push',
-            onepassword_path: 'vaults/emp-prod/items/pmkft-remote-read-write'
+            onepassword_path: 'vaults/emp-prod/items/pf9-emp-remote-read-write'
         },
         replicas: {
             kubeStateMetrics: 1,
