@@ -32,6 +32,8 @@ local defaults = {
     windowsExporter: '4m',
   },
   containerMetricsPrefix:: '',
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',
 
   prometheusURL:: error 'must provide prometheusURL',
   containerQuerySelector:: '',
@@ -178,7 +180,7 @@ function(params) {
       endpoints: [
         {
           port: 'https',
-          interval: '30s',
+          interval: pa._config.scrapeInterval,
           scheme: 'https',
           tlsConfig: {
             insecureSkipVerify: true,
@@ -197,6 +199,11 @@ function(params) {
                                       'apiserver_webhooks_.*',  // Prometeus-adapter doesn't make use of apiserver webhooks.
                                       'workqueue_.*',  // Metrics related to the internal apiserver auth workqueues are not very useful to prometheus-adapter.
                                     ]) + ')',
+            },
+            {
+              sourceLabels: ['__name__'],
+              action: 'drop',
+              regex: 'aggregator_.*|apiextensions_.*|apiserver_.*|authenticated_.*|authentication_.*|etcd_.*|field_validation_request_.*|go_.*',
             },
           ],
         },

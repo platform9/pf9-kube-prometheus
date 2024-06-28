@@ -17,6 +17,8 @@ local defaults = {
       limits: { cpu: '20m', memory: '40Mi' },
     },
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',  
   commonLabels:: {
     'app.kubernetes.io/name': 'blackbox-exporter',
     'app.kubernetes.io/version': defaults.version,
@@ -310,13 +312,20 @@ function(params) {
     spec: {
       endpoints: [{
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
-        interval: '30s',
+        interval: bb._config.scrapeInterval,
         path: '/metrics',
         port: 'https',
         scheme: 'https',
         tlsConfig: {
           insecureSkipVerify: true,
         },
+        metricRelabelings: [
+            {
+              sourceLabels: ['__name__'],
+              action: 'drop',
+              regex: 'blackbox_.*|promhttp_metric_.*|go_.*',
+            },
+        ],
       }],
       selector: {
         matchLabels: bb._config.selectorLabels,

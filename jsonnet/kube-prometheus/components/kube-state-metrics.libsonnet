@@ -1,4 +1,5 @@
 local krp = import './kube-rbac-proxy.libsonnet';
+local environment_vars = import '../environment.jsonnet';
 
 local defaults = {
   local defaults = self,
@@ -10,8 +11,8 @@ local defaults = {
   image:: error 'must provide image',
   kubeRbacProxyImage:: error 'must provide kubeRbacProxyImage',
   resources:: {
-    requests: { cpu: '10m', memory: '190Mi' },
-    limits: { cpu: '100m', memory: '250Mi' },
+    requests: { cpu: environment_vars.kube_prometheus.resources.kubeStateMetrics.requests.cpu, memory: environment_vars.kube_prometheus.resources.kubeStateMetrics.requests.memory },
+    limits: { cpu: environment_vars.kube_prometheus.resources.kubeStateMetrics.limits.cpu, memory: environment_vars.kube_prometheus.resources.kubeStateMetrics.limits.memory },
   },
 
   kubeRbacProxyMain:: {
@@ -26,7 +27,7 @@ local defaults = {
       requests+: { cpu: '10m' },
     },
   },
-  scrapeInterval:: '30s',
+  scrapeInterval:: '2m',
   scrapeTimeout:: '30s',
   commonLabels:: {
     'app.kubernetes.io/name': defaults.name,
@@ -152,6 +153,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
 
   deployment+: {
     spec+: {
+      replicas: environment_vars.kube_prometheus.replicas.kubeStateMetrics,
       template+: {
         metadata+: {
           annotations+: {
@@ -202,6 +204,17 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
                 regex: 'kube_endpoint_address_not_ready|kube_endpoint_address_available',
                 action: 'drop',
               },
+              {
+                // Dropping unwanted metric from kube-state-metrics
+                sourceLabels: ['__name__'],
+                regex: 'http_request_.*|go_.*',
+                action: 'drop',
+              },
+              {
+                sourceLabels: ['__name__'],
+                regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
+                action: 'drop',
+              },
             ],
             tlsConfig: {
               insecureSkipVerify: true,
@@ -212,6 +225,25 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
             scheme: 'https',
             interval: ksm._config.scrapeInterval,
             bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
+            metricRelabelings: [
+              {
+                // Dropping metric deprecated from kube-state-metrics 2.6.0 version
+                sourceLabels: ['__name__'],
+                regex: 'kube_endpoint_address_not_ready|kube_endpoint_address_available',
+                action: 'drop',
+              },
+              {
+                // Dropping unwanted metric from kube-state-metrics
+                sourceLabels: ['__name__'],
+                regex: 'http_request_.*|go_.*',
+                action: 'drop',
+              },
+              {
+                sourceLabels: ['__name__'],
+                regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
+                action: 'drop',
+              },
+            ],
             tlsConfig: {
               insecureSkipVerify: true,
             },

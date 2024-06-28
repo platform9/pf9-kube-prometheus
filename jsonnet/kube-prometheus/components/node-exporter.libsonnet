@@ -19,6 +19,8 @@ local defaults = {
       limits: { cpu: '20m', memory: '40Mi' },
     },
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',
   listenAddress:: '127.0.0.1',
   filesystemMountPointsExclude:: '^/(dev|proc|sys|run/k3s/containerd/.+|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)',
   // NOTE: ignore veth network interface associated with containers.
@@ -161,7 +163,7 @@ function(params) {
       endpoints: [{
         port: 'https',
         scheme: 'https',
-        interval: '15s',
+        interval: ne._config.scrapeInterval,
         bearerTokenFile: '/var/run/secrets/kubernetes.io/serviceaccount/token',
         relabelings: [
           {
@@ -175,6 +177,13 @@ function(params) {
         tlsConfig: {
           insecureSkipVerify: true,
         },
+        metricRelabelings: [
+          {
+            sourceLabels: ['__name__'],
+            regex: 'promhttp_metric_handler_.*|go_.*',
+            action: 'drop',
+          },
+        ],
       }],
     },
   },
@@ -217,6 +226,7 @@ function(params) {
         '--no-collector.wifi',
         '--no-collector.hwmon',
         '--no-collector.btrfs',
+        '--no-collector.ipvs',
         '--collector.filesystem.mount-points-exclude=' + ne._config.filesystemMountPointsExclude,
         '--collector.netclass.ignored-devices=' + ne._config.ignoredNetworkDevices,
         '--collector.netdev.device-exclude=' + ne._config.ignoredNetworkDevices,

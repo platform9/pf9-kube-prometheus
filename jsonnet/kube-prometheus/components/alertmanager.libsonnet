@@ -16,6 +16,8 @@ local defaults = {
     'app.kubernetes.io/component': 'alert-router',
     'app.kubernetes.io/part-of': 'kube-prometheus',
   },
+  scrapeInterval:: '2m',
+  scrapeTimeout:: '30s',  
   selectorLabels:: {
     [labelName]: defaults.commonLabels[labelName]
     for labelName in std.objectFields(defaults.commonLabels)
@@ -193,8 +195,14 @@ function(params) {
         matchLabels: am._config.selectorLabels,
       },
       endpoints: [
-        { port: 'web', interval: '30s' },
-        { port: 'reloader-web', interval: '30s' },
+        { 
+          port: 'web',
+          interval: am._config.scrapeInterval,
+        },
+        {
+          port: 'reloader-web',
+          interval: am._config.scrapeInterval,
+        },
       ],
     },
   },

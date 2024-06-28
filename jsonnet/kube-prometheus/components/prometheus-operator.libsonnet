@@ -128,6 +128,14 @@ function(params)
             tlsConfig: {
               insecureSkipVerify: true,
             },
+            metricRelabelings: [
+              // Drop unwanted metrics
+              {
+                sourceLabels: ['__name__'],
+                regex: 'prometheus_operator_kubernetes_.*|prometheus_operator_list_.*|prometheus_operator_managed_.*|prometheus_operator_node_.*|prometheus_operator_reconcile_.*|prometheus_operator_watch_.*|prometheus_operator_s.*|prometheus_operator_triggered_.*|go_.*',
+                action: 'drop',
+              },
+            ],
           },
         ],
       },

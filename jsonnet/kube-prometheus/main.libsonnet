@@ -72,9 +72,9 @@ local utils = import './lib/utils.libsonnet';
       // TODO(paulfantom) This should be done by iterating over all objects and looking for object.mixin.grafanaDashboards
       dashboards: $.nodeExporter.mixin.grafanaDashboards +
                   $.prometheus.mixin.grafanaDashboards +
-                  $.kubernetesControlPlane.mixin.grafanaDashboards +
+                 $.kubernetesControlPlane.mixin.grafanaDashboards +
                   $.alertmanager.mixin.grafanaDashboards +
-                  $.grafana.mixin.grafanaDashboards,
+                 $.grafana.mixin.grafanaDashboards,
       mixin+: { ruleLabels: $.values.common.ruleLabels },
     },
     kubeStateMetrics: {

@@ -19,7 +19,31 @@ MD_FILES_TO_FORMAT=$(shell find docs developer-workspace examples experimental j
 
 KUBESCAPE_THRESHOLD=1
 
-all: generate fmt test docs
+CURRENT_DIR := $(abspath .)
+# Dependencies
+GOPATH ?= $(CURRENT_DIR)/gopath
+GOPATH_DIR := $(GOPATH)
+NEWPATH := $(PATH):$(CURRENT_DIR)/go/bin:$(GOPATH)/bin
+
+ENVIRONMENT ?= default
+ENV_FILE ?= $(ENVIRONMENT).jsonnet
+
+all: generate fmt publish
+#test docs
+
+.PHONY: go-tools
+go-tools: $(GOPATH)
+
+$(GOPATH): export PATH=$(NEWPATH)
+$(GOPATH): export GOPATH=$(GOPATH_DIR)
+$(GOPATH): export GO111MODULE=on
+$(GOPATH):
+	bash $(CURRENT_DIR)/scripts/get-go-tools.sh
+	mkdir -p tmp/bin
+#   Pick the right environment file based on the CI job flag
+	cp $(CURRENT_DIR)/jsonnet/kube-prometheus/env/$(ENV_FILE) $(CURRENT_DIR)/jsonnet/kube-prometheus/environment.jsonnet
+#	go install -a 'github.com/grafana/tanka/cmd/tk@v0.24.0'
+#	go install -a 'github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1'
 
 .PHONY: clean
 clean:
@@ -37,7 +61,7 @@ check-docs: $(MDOX_BIN) $(shell find examples) build.sh example.jsonnet
 	$(MDOX_BIN) fmt --soft-wraps --check -l --links.localize.address-regex="https://prometheus-operator.dev/.*" --links.validate.config-file=$(MDOX_VALIDATE_CONFIG) $(MD_FILES_TO_FORMAT)
 
 .PHONY: generate
-generate: manifests
+generate: $(GOPATH) manifests
 
 manifests: examples/kustomize.jsonnet $(GOJSONTOYAML_BIN) vendor
 	./build.sh $<
@@ -94,9 +118,18 @@ $(BIN_DIR):
 
 $(TOOLING): $(BIN_DIR)
 	@echo Installing tools from scripts/tools.go
-	@cd scripts && cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % go build -modfile=go.mod -o $(BIN_DIR) %
+	@cd scripts && cat tools.go | grep _ | awk -F'"' '{print $$2}' | xargs -tI % $(CURRENT_DIR)/go/bin/go build -modfile=go.mod -o $(BIN_DIR) %
 
 .PHONY: deploy
 deploy:
 	./developer-workspace/codespaces/prepare-kind.sh
 	./developer-workspace/common/deploy-kube-prometheus.sh
+
+.PHONY: publish
+publish:
+	rm -rf $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/grafana
+	mkdir -p $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/alertmanager
+	mv $(CURRENT_DIR)/manifests/alertmanager-* $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/alertmanager/
+	mv $(CURRENT_DIR)/manifests/grafana-* $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/grafana/
+	cp -r $(CURRENT_DIR)/manifests/  $(CURRENT_DIR)/../pf9-hawkeye/pf9-kube-monitoring/$(ENVIRONMENT)/
