@@ -20,8 +20,8 @@
                limits: { cpu: '200m', memory: '2Gi' },
             },
             prometheusK8s:{
-               requests: { cpu: '1', memory: '6Gi' },
-               limits: { cpu: '2', memory: '12Gi' },
+               requests: { cpu: '1', memory: '12Gi' },
+               limits: { cpu: '2', memory: '16Gi' },
             },
         },       
     },
