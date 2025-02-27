@@ -212,7 +212,7 @@ function(params) (import 'github.com/kubernetes/kube-state-metrics/jsonnet/kube-
               },
               {
                 sourceLabels: ['__name__'],
-                regex: 'kube_(configmap|cronjob|daemonset|endpoint|horizontalpodautoscaler|ingress|job|lease|mutatingwebhookconfiguration|namespace|networkpolicy|persistentvolume|persistentvolumeclaim|poddisruptionbudget|replicaset|secret|service|state|statefulset|storageclass|validatingwebhookconfiguration|volumeattachment)_.*',
+                regex: 'kube_(lease|mutatingwebhookconfiguration|networkpolicy|validatingwebhookconfiguration)_.*',
                 action: 'drop',
               },
             ],
