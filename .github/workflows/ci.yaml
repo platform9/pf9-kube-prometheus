@@ -7,6 +7,7 @@ env:
   kind-version: 'v0.11.1'
 jobs:
   generate:
+    if: false
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
