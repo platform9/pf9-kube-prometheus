@@ -1,9 +1,9 @@
 name: ci
 on:
-  - push
-  - pull_request
+- push
+- pull_request
 env:
-  golang-version: '1.21'
+  golang-version: '1.15'
   kind-version: 'v0.11.1'
 jobs:
   generate:
@@ -12,18 +12,17 @@ jobs:
     strategy:
       matrix:
         os:
-          - macos-latest
-          - ubuntu-latest
+        - macos-latest
+        - ubuntu-latest
     name: Generate
     steps:
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
-    - uses: actions/setup-go@v4
+    - uses: actions/setup-go@v2
       with:
         go-version: ${{ env.golang-version }}
     - run: make --always-make generate validate && git diff --exit-code
-
   lint:
     runs-on: ubuntu-latest
     name: Jsonnet linter
@@ -31,11 +30,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
-    - uses: actions/setup-go@v4
-      with:
-        go-version: ${{ env.golang-version }}
     - run: make --always-make lint
-
   fmt:
     runs-on: ubuntu-latest
     name: Jsonnet formatter
@@ -43,11 +38,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
-    - uses: actions/setup-go@v4
-      with:
-        go-version: ${{ env.golang-version }}
     - run: make --always-make fmt && git diff --exit-code
-
   unit-tests:
     runs-on: ubuntu-latest
     name: Unit tests
@@ -55,26 +46,19 @@ jobs:
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
-    - uses: actions/setup-go@v4
-      with:
-        go-version: ${{ env.golang-version }}
     - run: make --always-make test
-
   e2e-tests:
     name: E2E tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
         kind-image:
-          - 'kindest/node:v1.21.1'
-          - 'kindest/node:v1.22.0'
+        - 'kindest/node:v1.21.1'
+        - 'kindest/node:v1.22.0'
     steps:
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
-    - uses: actions/setup-go@v4
-      with:
-        go-version: ${{ env.golang-version }}
     - name: Start KinD
       uses: engineerd/setup-kind@v0.5.0
       with:
