@@ -10,8 +10,8 @@ local defaults = {
   kubeRbacProxyImage: error 'must provide kubeRbacProxyImage',
   configReloaderImage: error 'must provide config reloader image',
   resources: {
-    limits: { cpu: '200m', memory: '300Mi' },
-    requests: { cpu: '100m', memory: '200Mi' },
+    limits: { cpu: '200m', memory: '500Mi' },
+    requests: { cpu: '100m', memory: '300Mi' },
   },
   commonLabels:: {
     'app.kubernetes.io/name': defaults.name,
